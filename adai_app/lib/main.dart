@@ -32,9 +32,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        brightness: Brightness.dark,
+        //primarySwatch: Colors.red,
+        brightness: false ? Brightness.dark : Brightness.light,
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
@@ -48,9 +49,7 @@ class App extends StatelessWidget {
             return LoginOtp(userRepository: userRepository);
           }
           if (state is AuthenticationUnauthenticated) {
-            return LoginPage(
-              userRepository: userRepository,
-            );
+            return LoginPage(userRepository: userRepository);
           }
           return LoadingIndicator();
         },

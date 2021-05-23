@@ -6,7 +6,6 @@ import 'package:adai/repository/user_repository.dart';
 import 'package:adai/bloc/authentication_bloc.dart';
 import 'package:adai/login/bloc/login_bloc.dart';
 import 'package:adai/login/login_form_otp.dart';
-//import 'package:adai/login/login_form_otp.dart';
 
 class LoginOtp extends StatelessWidget {
   final UserRepository userRepository;
@@ -20,8 +19,10 @@ class LoginOtp extends StatelessWidget {
     print(phoneno);
     return new WillPopScope(
       child: Scaffold(
+        backgroundColor: Color.fromARGB(255, 52, 68, 94),
         appBar: AppBar(
             title: Text('Enter OTP'),
+            backgroundColor: Color.fromARGB(255, 17, 182, 202),
             leading: GestureDetector(
               onTap: () {
                 BlocProvider.of<AuthenticationBloc>(context).add(AppStarted());

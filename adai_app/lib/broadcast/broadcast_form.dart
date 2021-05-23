@@ -2,16 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:adai/login/bloc/login_bloc.dart';
 
-// ignore: camel_case_types
-class broadcastform extends StatefulWidget {
+class BroadcastForm extends StatefulWidget {
   @override
-  State<broadcastform> createState() => _BroadcastFormState();
+  State<BroadcastForm> createState() => _BroadcastFormState();
 }
 
-class _BroadcastFormState extends State<broadcastform> {
+class _BroadcastFormState extends State<BroadcastForm> {
   File selectedImage;
   final picker = ImagePicker();
   final _usernameController = TextEditingController();
@@ -98,6 +95,7 @@ class _BroadcastFormState extends State<broadcastform> {
   Widget build(BuildContext context) {
     tf() {}
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.red,
           brightness: Brightness.dark,

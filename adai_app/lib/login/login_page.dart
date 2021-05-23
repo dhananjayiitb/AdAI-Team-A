@@ -20,6 +20,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login | Home Hub'),
+        backgroundColor: Color.fromARGB(255, 17, 182, 202),
       ),
       body: BlocProvider(
         create: (context) {

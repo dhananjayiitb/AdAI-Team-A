@@ -50,8 +50,16 @@ class _LoginFormotpState extends State<LoginFormotp> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.35),
+                        padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.25),
+                        child: TextField(
+                          enabled: false,
+                          decoration: InputDecoration(
+                            labelText: globals.phone,
+                            labelStyle: TextStyle(color: Colors.white, fontSize: 17)
+                          ),
+                        ),
+                      ),
+                      Container(
                         child: OTPTextField(
                           length: 6,
                           width: MediaQuery.of(context).size.width * 0.7,
@@ -71,7 +79,7 @@ class _LoginFormotpState extends State<LoginFormotp> {
                         child: Padding(
                           padding: EdgeInsets.only(top: 30.0),
                           // ignore: deprecated_member_use
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: state is! LoginLoading
                                 ? _onLoginButtonPressed
                                 : null,
@@ -81,14 +89,18 @@ class _LoginFormotpState extends State<LoginFormotp> {
                                 fontSize: 24.0,
                               ),
                             ),
-                            shape: StadiumBorder(
-                              side: BorderSide(
-                                color: Colors.black,
-                                width: 2,
-                              ),
+                            style: ElevatedButton.styleFrom(
+                                primary: Color.fromARGB(255, 17, 182, 202),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                                side: BorderSide(
+                                  width: 0,
+                                )
                             ),
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 50,
                       ),
                       Container(
                         child: state is LoginLoading

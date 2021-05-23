@@ -16,7 +16,7 @@ Future<Token> getToken(UserLogin userLogin) async {
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(userLogin.toDatabaseJson()),
-    //'{"phone":"+918587863369","otp":"055283"}',
+    //'{"phone":"+918587863369","otp":"123456"}',
   );
   print(response.body);
   if (response.statusCode == 200) {

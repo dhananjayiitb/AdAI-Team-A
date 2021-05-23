@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:adai/login/bloc/login_bloc.dart';
@@ -41,16 +42,21 @@ class _LoginFormState extends State<LoginForm> {
     }
 
     _onLoginButtonPressed() {
-      getotp(_usernameController.text);
-      BlocProvider.of<LoginBloc>(context).add(OTPButtonPressed(
-        phoneno: _usernameController.text,
-        userRepository: userRepository,
-      ));
-      globals.phone = "+91" + _usernameController.text;
-      print(globals.phone);
+      if(_usernameController.text.length == 10) {
+        getotp(_usernameController.text);
+        BlocProvider.of<LoginBloc>(context).add(OTPButtonPressed(
+          phoneno: _usernameController.text,
+          userRepository: userRepository,
+        ));
+        globals.phone = "+91" + _usernameController.text;
+        print(globals.phone);
+      }
     }
 
     return Container(
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 52, 68, 94),
+      ),
       child: Form(
         child: Padding(
           padding: EdgeInsets.all(40.0),
@@ -60,7 +66,11 @@ class _LoginFormState extends State<LoginForm> {
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(
-                    labelText: 'Phone No.', icon: Icon(Icons.phone)),
+                  labelText: 'Phone No.', icon: Icon(Icons.phone),
+                ),
+                style: TextStyle(
+                  color: Colors.white
+                ),
                 keyboardType: TextInputType.number,
                 //inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                 controller: _usernameController,
@@ -71,7 +81,7 @@ class _LoginFormState extends State<LoginForm> {
                 child: Padding(
                   padding: EdgeInsets.only(top: 30.0),
                   // ignore: deprecated_member_use
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: _onLoginButtonPressed,
                     child: Text(
                       'Send OTP',
@@ -79,11 +89,12 @@ class _LoginFormState extends State<LoginForm> {
                         fontSize: 24.0,
                       ),
                     ),
-                    shape: StadiumBorder(
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 17, 182, 202),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                       side: BorderSide(
-                        color: Colors.black,
-                        width: 2,
-                      ),
+                        width: 0,
+                      )
                     ),
                   ),
                 ),

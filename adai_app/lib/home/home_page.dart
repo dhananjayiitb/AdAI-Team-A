@@ -23,6 +23,7 @@ class HomePage extends StatelessWidget {
     }
 
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.red,
           brightness: Brightness.dark,
@@ -63,7 +64,7 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => broadcastform()),
+                              builder: (context) => BroadcastForm()),
                         );
                       },
                       child: Text(
@@ -116,7 +117,7 @@ class HomePage extends StatelessWidget {
                   ),
                   buttons: [
                     DialogButton(
-                      onPressed: () {},
+                      onPressed: () {print("lmao");},
                       child: Text(
                         "Add",
                         style: TextStyle(color: Colors.black, fontSize: 20),
