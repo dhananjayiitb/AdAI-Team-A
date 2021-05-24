@@ -66,7 +66,19 @@ class _LoginFormState extends State<LoginForm> {
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Phone No.', icon: Icon(Icons.phone),
+                  labelText: 'Phone No.',
+                  icon: Icon(Icons.phone, color: Colors.white),
+                  labelStyle: TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromARGB(255, 17, 182, 202),
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Color.fromARGB(255, 17, 182, 202),
+                    ),
+                  ),
                 ),
                 style: TextStyle(
                   color: Colors.white

@@ -54,17 +54,22 @@ class _LoginFormotpState extends State<LoginFormotp> {
                         child: TextField(
                           enabled: false,
                           decoration: InputDecoration(
-                            labelText: globals.phone,
-                            labelStyle: TextStyle(color: Colors.white, fontSize: 17)
+                            labelText: '+91  '+ globals.phone.substring(3),
+                            labelStyle: TextStyle(color: Colors.white, fontSize: 17),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 17, 182, 202),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Container(
                         child: OTPTextField(
                           length: 6,
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: MediaQuery.of(context).size.width * 1,
                           fieldWidth: MediaQuery.of(context).size.width * 0.1,
-                          style: TextStyle(fontSize: 17),
+                          style: TextStyle(fontSize: 17, color: Colors.white),
                           textFieldAlignment: MainAxisAlignment.spaceAround,
                           fieldStyle: FieldStyle.underline,
                           onCompleted: (pin) {
