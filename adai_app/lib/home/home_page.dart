@@ -1,5 +1,6 @@
 
 import 'package:adai/home/categories.dart';
+import 'package:adai/main_drawer/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -148,6 +149,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   File _image;
   final imagePicker =ImagePicker();
+  MainDrawer mainDrawer=new MainDrawer();
 
   Future getCameraImage() async{
     final image= await imagePicker.getImage(
@@ -169,6 +171,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SafeArea(
+          child: mainDrawer
+      ),
       floatingActionButton: FloatingActionButton.extended(
         label: Text('Select Template'),
         icon: Icon(Icons.camera ),
