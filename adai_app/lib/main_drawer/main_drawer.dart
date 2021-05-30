@@ -1,5 +1,5 @@
 import 'package:adai/bloc/authentication_bloc.dart';
-import 'package:adai/home/editable_text.dart';
+import 'package:adai/main_drawer/editable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +49,13 @@ class _MainDrawerState extends State<MainDrawer> {
                       getGalleryImage();
                     },
                     child: Container(
-                      child: _images?.isEmpty ?? true ? Image.asset('assets/images/profile_pic.jpg',fit: BoxFit.fill,):Image.file(_images.last)  ,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: _images?.isEmpty ?? true ? AssetImage('assets/images/profile_pic.jpg') : FileImage(_images.last),
+                          fit: BoxFit.cover,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
                       width: 100,
                       height: 100,
                     ),

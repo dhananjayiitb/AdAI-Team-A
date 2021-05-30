@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 class CategoryBar extends StatefulWidget {
   const CategoryBar({Key key}) : super(key: key);
-
+  get selectedIndexHome=> _CategoryBarState().selectedIndex;
   @override
   _CategoryBarState createState() => _CategoryBarState();
 }
 
 class _CategoryBarState extends State<CategoryBar> {
-  List<String> categoryList=['Previous Templates','Custom Made Template'];
+
+  List<String> categoryList=['Custom Made Template','Previous Templates'];
   var selectedIndex=0;
   @override
   Widget build(BuildContext context) {

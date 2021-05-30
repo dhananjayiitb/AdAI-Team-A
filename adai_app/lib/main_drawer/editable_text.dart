@@ -59,7 +59,6 @@ class _EditableText_OwnState extends State<EditableText_Own> {
       onTap: (){
         setState(() {
           _isEditingText=true;
-          InitialText='H';
         });
       },
       child: Text(

@@ -1,4 +1,5 @@
 
+import 'package:adai/Custom_made_templates/page_view.dart';
 import 'package:adai/home/categories.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -150,6 +151,7 @@ class _HomePageState extends State<HomePage> {
   File _image;
   final imagePicker =ImagePicker();
   MainDrawer mainDrawer=new MainDrawer();
+  CategoryBar _categoryBar=new CategoryBar();
 
   Future getCameraImage() async{
     final image= await imagePicker.getImage(
@@ -278,7 +280,14 @@ class _HomePageState extends State<HomePage> {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  CategoryBar(),
+                  _categoryBar,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height-220,
+                      child: _categoryBar.selectedIndexHome==0 ? PosterTemplateTile():AssetImage('assets/images/poster2.jpg'),
+                    ),
+                  )
                 ]
                     )
                   )
