@@ -35,7 +35,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         //primarySwatch: Colors.red,
-        brightness: false ? Brightness.dark : Brightness.light,
+        brightness: Brightness.light,
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {

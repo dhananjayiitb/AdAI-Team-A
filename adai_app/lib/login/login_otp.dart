@@ -1,3 +1,4 @@
+import 'package:adai/globals.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +20,10 @@ class LoginOtp extends StatelessWidget {
     print(phoneno);
     return new WillPopScope(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 52, 68, 94),
+        backgroundColor: background,
         appBar: AppBar(
             title: Text('Enter OTP'),
-            backgroundColor: Color.fromARGB(255, 17, 182, 202),
+            backgroundColor: button,
             leading: GestureDetector(
               onTap: () {
                 BlocProvider.of<AuthenticationBloc>(context).add(AppStarted());

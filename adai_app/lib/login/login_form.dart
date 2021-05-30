@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
 
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 52, 68, 94),
+        color: globals.background,
       ),
       child: Form(
         child: Padding(
@@ -71,12 +71,12 @@ class _LoginFormState extends State<LoginForm> {
                   labelStyle: TextStyle(color: Colors.white),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color.fromARGB(255, 17, 182, 202),
+                      color: globals.button,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color.fromARGB(255, 17, 182, 202),
+                      color: globals.button,
                     ),
                   ),
                 ),
@@ -102,7 +102,7 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(255, 17, 182, 202),
+                      primary: globals.button,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                       side: BorderSide(
                         width: 0,

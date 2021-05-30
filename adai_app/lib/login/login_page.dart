@@ -1,3 +1,4 @@
+import 'package:adai/globals.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login | Home Hub'),
-        backgroundColor: Color.fromARGB(255, 17, 182, 202),
+        backgroundColor: button,
       ),
       body: BlocProvider(
         create: (context) {

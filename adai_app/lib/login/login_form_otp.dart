@@ -58,7 +58,7 @@ class _LoginFormotpState extends State<LoginFormotp> {
                             labelStyle: TextStyle(color: Colors.white, fontSize: 17),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color.fromARGB(255, 17, 182, 202),
+                                color: globals.button,
                               ),
                             ),
                           ),
@@ -95,7 +95,7 @@ class _LoginFormotpState extends State<LoginFormotp> {
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 17, 182, 202),
+                                primary: globals.button,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                                 side: BorderSide(
                                   width: 0,
