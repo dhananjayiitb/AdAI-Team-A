@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CategoryBar extends StatefulWidget {
   const CategoryBar({Key key}) : super(key: key);
-  get selectedIndexHome=> _CategoryBarState().selectedIndex;
   @override
   _CategoryBarState createState() => _CategoryBarState();
 }
@@ -39,9 +39,11 @@ class _CategoryBarState extends State<CategoryBar> {
         ]
       ),
       child: GestureDetector(
-        onTap: (){
-          setState(() {
+        onTap: () {
+          setState(() async {
             selectedIndex=index;
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            prefs.setInt('selectedIndex', selectedIndex);
           });
         },
         child: Column(

@@ -10,6 +10,8 @@ import 'package:adai/broadcast/broadcast_form.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:io';
+
+import 'package:shared_preferences/shared_preferences.dart';
 /*
 class HomePage extends StatelessWidget {
   final _name = TextEditingController();
@@ -152,6 +154,14 @@ class _HomePageState extends State<HomePage> {
   final imagePicker =ImagePicker();
   MainDrawer mainDrawer=new MainDrawer();
   CategoryBar _categoryBar=new CategoryBar();
+  var selectedIndex=0;
+
+  Future getSelectedIndex() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedIndex=prefs.getInt('selectedIndex');
+    });
+  }
 
   Future getCameraImage() async{
     final image= await imagePicker.getImage(
@@ -169,6 +179,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _image=File(image.path);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSelectedIndex();
   }
   @override
   Widget build(BuildContext context) {
@@ -285,7 +301,9 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
                     child: Container(
                       height: MediaQuery.of(context).size.height-220,
-                      child: _categoryBar.selectedIndexHome==0 ? PosterTemplateTile():AssetImage('assets/images/poster2.jpg'),
+                      child: selectedIndex==0 ? PosterTemplateTile():Container(
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ]
@@ -297,3 +315,4 @@ class _HomePageState extends State<HomePage> {
         );
   }
 }
+

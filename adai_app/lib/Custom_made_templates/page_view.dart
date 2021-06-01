@@ -27,7 +27,7 @@ class _PosterTemplateTileState extends State<PosterTemplateTile> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width-25,
-                  height: MediaQuery.of(context).size.height-350,
+                  height: MediaQuery.of(context).size.height-250,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(60),
                       boxShadow: [
@@ -42,11 +42,10 @@ class _PosterTemplateTileState extends State<PosterTemplateTile> {
                       )
                   ),
                 ),
-                Container(
-                  child: RichText(
-                    
-                  ),
-                )
+                // Container(
+                //   child: RichText(
+                //   ),
+                // )
               ],
             ),
           ),
