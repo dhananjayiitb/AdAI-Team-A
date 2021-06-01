@@ -1,8 +1,6 @@
-import 'dart:io';
-
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
-
+import 'package:flutter/services.dart';
 import '../globals.dart';
 
 class SharePage extends StatefulWidget {
@@ -62,8 +60,8 @@ class _SharePageState extends State<SharePage> {
                         padding: EdgeInsets.only(top: 20.0),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            Share.shareFiles([preview]);
-                          },
+                            _onShare(preview);
+                            },
                           icon: Icon(Icons.share_outlined),
                           label: Text(
                             'Share',
@@ -93,9 +91,10 @@ class _SharePageState extends State<SharePage> {
   }
 }
 
-void _onShare(BuildContext context, String preview) async{
-    await Share.share(
-      preview,
-      subject: 'Test Demo',
-    );
+void _onShare(String poster) async{
+  print('lol1');
+  final ByteData bytes = await rootBundle.load(poster);
+  print('lol2');
+  await Share.file('Poster', 'poster.png', bytes.buffer.asUint8List(), 'image/png');
+  print('lol3');
 }
