@@ -15,6 +15,7 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  var lastImage='';
   List<File> _images=[];
   final imagePicker =ImagePicker();
   EditableText_Own nameText=new EditableText_Own("Enter Name");
@@ -25,9 +26,30 @@ class _MainDrawerState extends State<MainDrawer> {
     final image= await imagePicker.getImage(
         source: ImageSource.gallery
     );
-    setState(() {
+    await setLastImage(image);
+    setState(()  {
       _images.add(File(image.path));
+      lastImage=image.path;
     });
+  }
+
+  Future setLastImage(PickedFile image) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('LastImage', image.path);
+  }
+
+  Future getLastImage() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    lastImage=prefs.getString('LastImage');
+    if(lastImage!=''){
+      _images.add(File(lastImage));
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLastImage();
   }
 
   @override

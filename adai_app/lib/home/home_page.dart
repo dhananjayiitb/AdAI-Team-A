@@ -154,12 +154,12 @@ class _HomePageState extends State<HomePage> {
   final imagePicker =ImagePicker();
   MainDrawer mainDrawer=new MainDrawer();
   CategoryBar _categoryBar=new CategoryBar();
-  var selectedIndex=0;
+  var selectedIndexHome=0;
 
   Future getSelectedIndex() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      selectedIndex=prefs.getInt('selectedIndex');
+      selectedIndexHome=prefs.getInt('selectedIndex');
     });
   }
 
@@ -186,6 +186,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getSelectedIndex();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -301,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
                     child: Container(
                       height: MediaQuery.of(context).size.height-220,
-                      child: selectedIndex==0 ? PosterTemplateTile():Container(
+                      child: selectedIndexHome==0 ? PosterTemplateTile():Container(
                         color: Colors.white,
                       ),
                     ),

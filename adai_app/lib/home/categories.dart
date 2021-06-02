@@ -11,6 +11,12 @@ class _CategoryBarState extends State<CategoryBar> {
 
   List<String> categoryList=['Custom Made Template','Previous Templates'];
   var selectedIndex=0;
+
+  Future setSelectedIndex(index) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('selectedIndex', index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,11 +46,11 @@ class _CategoryBarState extends State<CategoryBar> {
       ),
       child: GestureDetector(
         onTap: () {
-          setState(() async {
+          setSelectedIndex(index);
+          setState(() {
             selectedIndex=index;
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            prefs.setInt('selectedIndex', selectedIndex);
           });
+
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
