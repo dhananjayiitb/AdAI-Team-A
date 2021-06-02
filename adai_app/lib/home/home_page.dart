@@ -1,6 +1,6 @@
 
 import 'package:adai/Custom_made_templates/page_view.dart';
-import 'package:adai/home/categories.dart';
+import 'package:adai/Previous_Templates/page_view.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -153,13 +153,13 @@ class _HomePageState extends State<HomePage> {
   File _image;
   final imagePicker =ImagePicker();
   MainDrawer mainDrawer=new MainDrawer();
-  CategoryBar _categoryBar=new CategoryBar();
-  var selectedIndexHome=0;
+  List<String> categoryList=['Custom Made Template','Previous Templates'];
+  var selectedIndex=0;
 
   Future getSelectedIndex() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      selectedIndexHome=prefs.getInt('selectedIndex');
+      selectedIndex=prefs.getInt('selectedIndex');
     });
   }
 
@@ -185,6 +185,51 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getSelectedIndex();
+  }
+
+  Widget CatTile(index) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.white70),
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white12,
+              blurRadius: 1.0,
+            )
+          ]
+      ),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                child: Text(
+                  categoryList[index],
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5.0),
+              height: 2,
+              width: 80,
+              color: selectedIndex == index ? Colors.white : Colors.transparent,
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -297,14 +342,22 @@ class _HomePageState extends State<HomePage> {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  _categoryBar,
+                Container(
+                  height: 55.0,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey[850],
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryList.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemBuilder: (context,index)=>CatTile(index)),
+                ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
                     child: Container(
                       height: MediaQuery.of(context).size.height-220,
-                      child: selectedIndexHome==0 ? PosterTemplateTile():Container(
-                        color: Colors.white,
-                      ),
+                      child: selectedIndex==0 ? TemplateTileCustomPosters():TemplateTilePrevPosters()
                     ),
                   )
                 ]

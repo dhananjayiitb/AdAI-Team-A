@@ -35,12 +35,12 @@ class _MainDrawerState extends State<MainDrawer> {
 
   Future setLastImage(PickedFile image) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('LastImage', image.path);
+    await prefs.setString('LastImage', image.path);
   }
 
   Future getLastImage() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    lastImage=prefs.getString('LastImage');
+    lastImage= prefs.getString('LastImage');
     if(lastImage!=''){
       _images.add(File(lastImage));
     }
@@ -51,6 +51,8 @@ class _MainDrawerState extends State<MainDrawer> {
     super.initState();
     getLastImage();
   }
+
+
 
   @override
   Widget build(BuildContext context) {

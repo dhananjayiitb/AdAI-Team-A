@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'predefined_posters.dart';
 
-class PosterTemplateTile extends StatefulWidget {
-  const PosterTemplateTile({Key key}) : super(key: key);
+class TemplateTileCustomPosters extends StatefulWidget {
+  const TemplateTileCustomPosters({Key key}) : super(key: key);
 
   @override
-  _PosterTemplateTileState createState() => _PosterTemplateTileState();
+  _TemplateTileCustomPostersState createState() => _TemplateTileCustomPostersState();
 }
 
-class _PosterTemplateTileState extends State<PosterTemplateTile> {
+class _TemplateTileCustomPostersState extends State<TemplateTileCustomPosters> {
   List<CustomMadeTemplate> _list=getCustomTemplates();
   @override
   Widget build(BuildContext context) {
