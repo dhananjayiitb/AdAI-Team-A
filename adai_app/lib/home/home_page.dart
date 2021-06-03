@@ -1,3 +1,4 @@
+import 'package:adai/directory/directory_home.dart';
 import 'package:adai/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,7 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          body: Row(
+          body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,6 +72,43 @@ class HomePage extends StatelessWidget {
                       },
                       child: Text(
                         'Broadcast Update',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                      ),
+                      // shape: StadiumBorder(
+                      //   side: BorderSide(
+                      //     color: Colors.black,
+                      //     width: 2,
+                      //   ),
+                      // ),
+                      color: Colors.red,
+                      textColor: Colors.white,
+                      highlightColor: Colors.red,
+                    )),
+                Container(
+                    margin: EdgeInsets.all(60),
+                    padding: EdgeInsets.all(20),
+                    child: RaisedButton(
+                      padding: EdgeInsets.all(20),
+                      focusColor: Colors.red,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DirectoryHome()),
+                        );
+                      },
+                      child: Text(
+                        'Directory',
                         style: TextStyle(
                           fontSize: 24.0,
                           color: Colors.white,
