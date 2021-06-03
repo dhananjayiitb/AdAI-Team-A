@@ -1,11 +1,23 @@
+<<<<<<< HEAD
 import 'package:adai/directory/directory_home.dart';
 import 'package:adai/globals.dart';
+=======
+
+import 'package:adai/Custom_made_templates/page_view.dart';
+import 'package:adai/Previous_Templates/page_view.dart';
+import 'package:adai/main_drawer/main_drawer.dart';
+import 'package:flutter/cupertino.dart';
+>>>>>>> GS
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:adai/bloc/authentication_bloc.dart';
 import 'package:adai/broadcast/broadcast_form.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'dart:io';
 
+import 'package:shared_preferences/shared_preferences.dart';
+/*
 class HomePage extends StatelessWidget {
   final _name = TextEditingController();
   final _phoneno = TextEditingController();
@@ -171,3 +183,233 @@ class HomePage extends StatelessWidget {
         ));
   }
 }
+*/
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  File _image;
+  final imagePicker =ImagePicker();
+  MainDrawer mainDrawer=new MainDrawer();
+  List<String> categoryList=['Custom Made Template','Previous Templates'];
+  var selectedIndex=0;
+
+  Future getSelectedIndex() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      selectedIndex=prefs.getInt('selectedIndex');
+    });
+  }
+
+  Future getCameraImage() async{
+    final image= await imagePicker.getImage(
+        source: ImageSource.camera
+    );
+    setState(() {
+      _image=File(image.path);
+    });
+  }
+
+  Future getGalleryImage() async{
+    final image= await imagePicker.getImage(
+        source: ImageSource.gallery
+    );
+    setState(() {
+      _image=File(image.path);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSelectedIndex();
+  }
+
+  Widget CatTile(index) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.white70),
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white12,
+              blurRadius: 1.0,
+            )
+          ]
+      ),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Container(
+                child: Text(
+                  categoryList[index],
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5.0),
+              height: 2,
+              width: 80,
+              color: selectedIndex == index ? Colors.white : Colors.transparent,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: SafeArea(
+          child: mainDrawer
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        label: Text('Select Template'),
+        icon: Icon(Icons.camera ),
+        splashColor: Colors.white,
+        onPressed: (){
+          Alert(
+              style: AlertStyle(
+                alertElevation: 15.0,
+                backgroundColor: Colors.black54,
+                isButtonVisible: false,
+                isCloseButton: false,
+                titleStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 30.0
+                )
+              ),
+              closeIcon: CloseButton(
+                color: Colors.red,
+              ),
+              context: context,
+              title: 'Select Method',
+              content: Column(
+                children: [
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      getGalleryImage();
+                    },
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0)
+                      ),
+                      tileColor: Colors.blue[900],
+                      leading: Icon(Icons.add_photo_alternate,color: Colors.white,),
+                      title: Text(
+                          'Gallery',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6.0,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      getCameraImage();
+                    },
+                    child: ListTile(
+                      tileColor: Colors.blue[900],
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0)
+                      ),
+                      leading: Icon(Icons.camera_alt_outlined,color: Colors.white,),
+                      title: Text(
+                          'Camera',
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              )
+
+          ).show();
+        },
+
+      ),
+      backgroundColor: Colors.grey[700],
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: Colors.black87,
+              floating: true,
+              centerTitle: true,
+              elevation: 4.0,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Home Page',
+                    style: TextStyle(
+                      color: Colors.amberAccent,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 25.0,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                Container(
+                  height: 55.0,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey[850],
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: categoryList.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemBuilder: (context,index)=>CatTile(index)),
+                ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height-220,
+                      child: selectedIndex==0 ? TemplateTileCustomPosters():TemplateTilePrevPosters()
+                    ),
+                  )
+                ]
+                    )
+                  )
+                ],
+              ),
+            )
+        );
+  }
+}
+
