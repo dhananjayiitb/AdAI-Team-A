@@ -1,16 +1,3 @@
-class User {
-  int id;
-  String username;
-  String token;
-
-  User({this.id, this.username, this.token});
-
-  factory User.fromDatabaseJson(Map<String, dynamic> data) => User(
-        id: data['id'],
-        username: data['username'],
-        token: data['token'],
-      );
-
-  Map<String, dynamic> toDatabaseJson() =>
-      {"id": this.id, "username": this.username, "token": this.token};
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:b35e0f9b5d22968cd533a551443fa1cc3ad30ef5d6ff3d8bb9dfe604e104683f
+size 406

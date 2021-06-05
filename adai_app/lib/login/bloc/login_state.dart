@@ -1,28 +1,3 @@
-part of 'login_bloc.dart';
-
-abstract class LoginState extends Equatable {
-  const LoginState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class LoginInitial extends LoginState {}
-
-class LoginLoading extends LoginState {}
-
-//class LoginLoading extends LoginState {}
-
-class LoginInitial1 extends LoginState {}
-
-class LoginFaliure extends LoginState {
-  final String error;
-
-  const LoginFaliure({@required this.error});
-
-  @override
-  List<Object> get props => [error];
-
-  @override
-  String toString() => ' LoginFaliure { error: $error }';
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:8fdfd7fce56f7133c5ea524cc74677e09cd7e40c512c38c0a891fd4878733d36
+size 575
