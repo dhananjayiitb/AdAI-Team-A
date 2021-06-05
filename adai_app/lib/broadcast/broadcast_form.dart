@@ -40,7 +40,7 @@ class _BroadcastFormState extends State<BroadcastForm> {
                               SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.4,
-                                child: Image.asset('Assets/test.png', fit: BoxFit.fill,),
+                                child: Image.asset('assets/images/test.png', fit: BoxFit.fill,),
                               ),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.30,

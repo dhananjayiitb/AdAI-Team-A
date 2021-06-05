@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'predefined_posters.dart';
 
-class TemplateTileCustomPosters extends StatefulWidget {
-  const TemplateTileCustomPosters({Key key}) : super(key: key);
+class TemplateTile extends StatefulWidget {
+  const TemplateTile({Key key}) : super(key: key);
 
   @override
-  _TemplateTileCustomPostersState createState() => _TemplateTileCustomPostersState();
+  _TemplateTileState createState() => _TemplateTileState();
 }
 
-class _TemplateTileCustomPostersState extends State<TemplateTileCustomPosters> {
-  List<CustomMadeTemplate> _list=getCustomTemplates();
+class _TemplateTileState extends State<TemplateTile> {
+  List<Template> _list = getTemplates();
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -26,14 +26,13 @@ class _TemplateTileCustomPostersState extends State<TemplateTileCustomPosters> {
             child: Column(
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width-25,
-                  height: MediaQuery.of(context).size.height-250,
+                  width: MediaQuery.of(context).size.width - 25,
+                  height: MediaQuery.of(context).size.height - 250,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(60),
+                      borderRadius: BorderRadius.circular(40),
                       boxShadow: [
                         BoxShadow(
-                          blurRadius: 10,
-                          color: Colors.white
+                          color: Colors.white,
                         ),
                       ],
                       image: DecorationImage(

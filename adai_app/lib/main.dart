@@ -39,19 +39,20 @@ class App extends StatelessWidget {
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is AuthenticationUninitialized) {
-            return SplashPage();
-          }
-          if (state is AuthenticationAuthenticated) {
-            return HomePage();
-          }
-          if (state is AuthenticationUnauthenticated1) {
-            return LoginOtp(userRepository: userRepository);
-          }
-          if (state is AuthenticationUnauthenticated) {
-            return LoginPage(userRepository: userRepository);
-          }
-          return LoadingIndicator();
+          return HomePage();
+          // if (state is AuthenticationUninitialized) {
+          //   return SplashPage();
+          // }
+          // if (state is AuthenticationAuthenticated) {
+          //   return HomePage();
+          // }
+          // if (state is AuthenticationUnauthenticated1) {
+          //   return LoginOtp(userRepository: userRepository);
+          // }
+          // if (state is AuthenticationUnauthenticated) {
+          //   return LoginPage(userRepository: userRepository);
+          // }
+          // return LoadingIndicator();
         },
       ),
     );

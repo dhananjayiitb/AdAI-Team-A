@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'previous_templates_data.dart';
 
-class TemplateTilePrevPosters extends StatefulWidget {
-  const TemplateTilePrevPosters({Key key}) : super(key: key);
+class PrevPosters extends StatefulWidget {
+  const PrevPosters({Key key}) : super(key: key);
 
   @override
-  _TemplateTilePrevPostersState createState() => _TemplateTilePrevPostersState();
+  _PrevPostersState createState() => _PrevPostersState();
 }
 
-class _TemplateTilePrevPostersState extends State<TemplateTilePrevPosters> {
+class _PrevPostersState extends State<PrevPosters> {
   List<PreviousTemplate> _list = getPreviousTemplates();
   @override
   Widget build(BuildContext context) {

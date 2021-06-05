@@ -11,7 +11,7 @@ class SharePage extends StatefulWidget {
 }
 
 class _SharePageState extends State<SharePage> {
-  String preview = 'Assets/test.png';
+  String preview = 'assets/images/test.png';
 
   @override
   Widget build(BuildContext context) {

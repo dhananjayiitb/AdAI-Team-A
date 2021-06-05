@@ -1,145 +1,20 @@
-
 import 'package:adai/Custom_made_templates/page_view.dart';
 import 'package:adai/Previous_Templates/page_view.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:adai/bloc/authentication_bloc.dart';
-import 'package:adai/broadcast/broadcast_form.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:io';
-
 import 'package:shared_preferences/shared_preferences.dart';
+import '../globals.dart';
 /*
-class HomePage extends StatelessWidget {
-  final _name = TextEditingController();
-  final _phoneno = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    void handleClick(String value) {
-      //handles on click operation of popdown list of logout and change password
-      switch (value) {
-        case 'Logout':
-          {
-            //log_out();
-            BlocProvider.of<AuthenticationBloc>(context)
-                .add(LoggedOut()); //to logout
-            break;
-          }
-      }
-    }
-
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-          brightness: Brightness.dark,
-        ),
-        title: 'FlutterBase',
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Home'),
-            actions: <Widget>[
-              PopupMenuButton<String>(
-                onSelected: handleClick,
-                itemBuilder: (BuildContext context) {
-                  return {'Logout'}.map((String choice) {
-                    //pop down list of logout and change password
-                    return PopupMenuItem<String>(
-                      value: choice,
-                      child: Text(choice),
-                    );
-                  }).toList();
-                },
-              ),
-            ],
-          ),
-          body: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                // padding: EdgeInsets.all(20),
-                //margin: EdgeInsets.all(60),
-                Container(
-                    margin: EdgeInsets.all(60),
-                    padding: EdgeInsets.all(20),
-                    child: RaisedButton(
-                      padding: EdgeInsets.all(20),
-                      focusColor: Colors.red,
-                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => BroadcastForm()),
                         );
                       },
-                      child: Text(
-                        'Broadcast Update',
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        side: BorderSide(
-                          color: Colors.black,
-                          width: 2,
-                        ),
-                      ),
-                      // shape: StadiumBorder(
-                      //   side: BorderSide(
-                      //     color: Colors.black,
-                      //     width: 2,
-                      //   ),
-                      // ),
-                      color: Colors.red,
-                      textColor: Colors.white,
-                      highlightColor: Colors.red,
-                    ))
-              ]),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Alert(
-                  context: context,
-                  title: "Add a Customer",
-                  content: Column(
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                          icon: Icon(Icons.queue),
-                          labelText: 'Name',
-                        ),
-                        controller: _phoneno,
-                      ),
-                      TextFormField(
-                        decoration: InputDecoration(
-                          icon: Icon(Icons.queue),
-                          labelText: 'Phone No.',
-                        ),
-                        controller: _name,
-                      ),
-                    ],
-                  ),
-                  buttons: [
-                    DialogButton(
-                      onPressed: () {print("lmao");},
-                      child: Text(
-                        "Add",
-                        style: TextStyle(color: Colors.black, fontSize: 20),
-                      ),
-                    )
-                  ]).show();
-            },
-            icon: Icon(Icons.add),
-            label: Text('Add new customers'),
-          ),
-        ));
-  }
-}
 */
 
 class HomePage extends StatefulWidget {
@@ -151,15 +26,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   File _image;
-  final imagePicker =ImagePicker();
-  MainDrawer mainDrawer=new MainDrawer();
-  List<String> categoryList=['Custom Made Template','Previous Templates'];
-  var selectedIndex=0;
+  final imagePicker = ImagePicker();
+  MainDrawer mainDrawer = new MainDrawer();
+  List<String> categoryList = ['Templates','Previous Posters'];
+  var selectedIndex;
 
   Future getSelectedIndex() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      selectedIndex=prefs.getInt('selectedIndex');
+      selectedIndex = prefs.getInt('selectedIndex');
     });
   }
 
@@ -184,18 +59,18 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    getSelectedIndex();
+    selectedIndex = 0;
+    //getSelectedIndex();
   }
 
   Widget CatTile(index) {
     return Container(
+      width: MediaQuery.of(context).size.width *0.5,
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.white70),
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
-              color: Colors.white12,
-              blurRadius: 1.0,
+              color: selectedIndex != index ? background : button,
             )
           ]
       ),
@@ -215,17 +90,12 @@ class _HomePageState extends State<HomePage> {
                   categoryList[index],
                   style: TextStyle(
                     fontSize: 18.0,
+                    fontWeight: selectedIndex != index ? FontWeight.w100 : FontWeight.w500,
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 5.0),
-              height: 2,
-              width: 80,
-              color: selectedIndex == index ? Colors.white : Colors.transparent,
-            )
           ],
         ),
       ),
@@ -236,27 +106,28 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SafeArea(
-          child: mainDrawer
+        child: mainDrawer,
       ),
       floatingActionButton: FloatingActionButton.extended(
-        label: Text('Select Template'),
-        icon: Icon(Icons.camera ),
+        label: Text('Select Images'),
+        backgroundColor: button,
+        icon: Icon(Icons.camera),
         splashColor: Colors.white,
-        onPressed: (){
+        onPressed: () {
           Alert(
               style: AlertStyle(
                 alertElevation: 15.0,
-                backgroundColor: Colors.black54,
+                backgroundColor: background,
                 isButtonVisible: false,
                 isCloseButton: false,
                 titleStyle: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w800,
-                  fontSize: 30.0
+                  fontSize: 30.0,
                 )
               ),
               closeIcon: CloseButton(
-                color: Colors.red,
+                color: button,
               ),
               context: context,
               title: 'Select Method',
@@ -271,16 +142,16 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: ListTile(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0)
+                        borderRadius: BorderRadius.circular(30.0)
                       ),
-                      tileColor: Colors.blue[900],
-                      leading: Icon(Icons.add_photo_alternate,color: Colors.white,),
+                      tileColor: button,
+                      leading: Icon(Icons.add_photo_alternate, color: Colors.white,),
                       title: Text(
                           'Gallery',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
@@ -293,17 +164,17 @@ class _HomePageState extends State<HomePage> {
                       getCameraImage();
                     },
                     child: ListTile(
-                      tileColor: Colors.blue[900],
+                      tileColor: button,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0)
+                          borderRadius: BorderRadius.circular(30.0)
                       ),
-                      leading: Icon(Icons.camera_alt_outlined,color: Colors.white,),
+                      leading: Icon(Icons.camera_alt_outlined, color: Colors.white,),
                       title: Text(
                           'Camera',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 20.0,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
@@ -315,23 +186,24 @@ class _HomePageState extends State<HomePage> {
         },
 
       ),
-      backgroundColor: Colors.grey[700],
+      backgroundColor: background,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              backgroundColor: Colors.black87,
+              iconTheme: IconThemeData(color: button),
+              backgroundColor: background,
               floating: true,
               centerTitle: true,
-              elevation: 4.0,
+              elevation: 0.0,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Home Page',
+                    'Home',
                     style: TextStyle(
-                      color: Colors.amberAccent,
+                      color: Colors.white,
                       fontWeight: FontWeight.w400,
                       fontSize: 25.0,
                     ),
@@ -345,28 +217,27 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   height: 55.0,
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.grey[850],
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: categoryList.length,
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
-                      itemBuilder: (context,index)=>CatTile(index)),
+                      itemBuilder: (context,index) => CatTile(index)),
                 ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 16),
+                    padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Container(
                       height: MediaQuery.of(context).size.height-220,
-                      child: selectedIndex==0 ? TemplateTileCustomPosters():TemplateTilePrevPosters()
+                      child: selectedIndex == 0 ? TemplateTile() : PrevPosters(),
                     ),
-                  )
-                ]
-                    )
-                  )
+                  ),
                 ],
               ),
-            )
-        );
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
