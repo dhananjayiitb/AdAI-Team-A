@@ -8,14 +8,6 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../globals.dart';
-/*
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BroadcastForm()),
-                        );
-                      },
-*/
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -63,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     //getSelectedIndex();
   }
 
-  Widget CatTile(index) {
+  Widget catTile(index) {
     return Container(
       width: MediaQuery.of(context).size.width *0.5,
       decoration: BoxDecoration(
@@ -222,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                       itemCount: categoryList.length,
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
-                      itemBuilder: (context,index) => CatTile(index)),
+                      itemBuilder: (context,index) => catTile(index)),
                 ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),

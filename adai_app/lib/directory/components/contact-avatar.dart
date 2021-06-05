@@ -1,3 +1,4 @@
+import 'package:adai/globals.dart';
 import 'package:flutter/material.dart';
 
 import '../contact-class.dart';
@@ -12,7 +13,7 @@ class ContactAvatar extends StatelessWidget {
         width: size,
         height: size,
         decoration: BoxDecoration(
-            shape: BoxShape.circle, color: Colors.cyan[600]),
+            shape: BoxShape.circle, color: button),
         child: (contact.info.avatar != null && contact.info.avatar.length > 0)
             ? CircleAvatar(
           backgroundImage: MemoryImage(contact.info.avatar),

@@ -1,4 +1,5 @@
 import 'package:adai/directory/components/contact-avatar.dart';
+import 'package:adai/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 
@@ -85,7 +86,7 @@ class _ContactDetailsState extends State<ContactDetails> {
           children: <Widget>[
             Container(
               height: 180,
-              decoration: BoxDecoration(color: Colors.cyan[200]),
+              decoration: BoxDecoration(color: background),
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[

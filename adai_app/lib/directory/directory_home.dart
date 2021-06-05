@@ -17,6 +17,7 @@ class _DirectoryHomeState extends State<DirectoryHome> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Contacts',
       theme: ThemeData(
         canvasColor: background,
@@ -64,7 +65,7 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
 
   getAllContacts() async {
     List colors = [
-      Colors.cyan[200]
+      button,
     ];
     int colorIndex = 0;
     List<AppContact> _contacts = (await ContactsService.getContacts()).map((contact) {
@@ -120,13 +121,15 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Directory"),
+        title: Text("Directory", style: TextStyle(fontSize: 27),),
         centerTitle: true,
-        backgroundColor: Colors.cyan[200],
+        toolbarHeight: 60,
+        backgroundColor: background,
+        elevation: 20,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        backgroundColor: Colors.cyan[200],
+        backgroundColor: button,
 
         onPressed: () async {
           try {
@@ -148,12 +151,12 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
                     labelText: 'Search',
                     border: new OutlineInputBorder(
                         borderSide: new BorderSide(
-                            color: Colors.cyan[200]
+                            color: button,
                         )
                     ),
                     prefixIcon: Icon(
                         Icons.search,
-                        color: Colors.cyan[200]
+                        color: button,
                     )
                 ),
               ),

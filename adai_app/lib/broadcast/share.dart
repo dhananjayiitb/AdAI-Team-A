@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import '../globals.dart';
 
 class SharePage extends StatefulWidget {
-  const SharePage({Key key}) : super(key: key);
+  SharePage({this.preview});
+  final preview;
 
   @override
   _SharePageState createState() => _SharePageState();
 }
 
 class _SharePageState extends State<SharePage> {
-  String preview = 'assets/images/test.png';
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _SharePageState extends State<SharePage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.5,
-                      child: Image.asset('$preview', fit: BoxFit.fill,),
+                      child: Image.asset(widget.preview, fit: BoxFit.fill,),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                     Container(
@@ -60,7 +60,7 @@ class _SharePageState extends State<SharePage> {
                         padding: EdgeInsets.only(top: 20.0),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            _onShare(preview);
+                            _onShare(widget.preview);
                             },
                           icon: Icon(Icons.share_outlined),
                           label: Text(
@@ -92,9 +92,6 @@ class _SharePageState extends State<SharePage> {
 }
 
 void _onShare(String poster) async{
-  print('lol1');
   final ByteData bytes = await rootBundle.load(poster);
-  print('lol2');
   await Share.file('Poster', 'poster.png', bytes.buffer.asUint8List(), 'image/png');
-  print('lol3');
 }

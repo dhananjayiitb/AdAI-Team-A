@@ -1,3 +1,4 @@
+import 'package:adai/broadcast/broadcast_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'predefined_posters.dart';
@@ -22,29 +23,31 @@ class _TemplateTileState extends State<TemplateTile> {
         return Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: (){},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BroadcastForm(preview: _list[index].posterLocation)),
+              );
+            },
             child: Column(
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width - 25,
                   height: MediaQuery.of(context).size.height - 250,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.white,
-                        ),
-                      ],
-                      image: DecorationImage(
-                        image: AssetImage(_list[index].posterLocation),
-                        fit: BoxFit.cover
-                      )
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white,
+                      ),
+                    ],
+                    image: DecorationImage(
+                      image: AssetImage(_list[index].posterLocation),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                // Container(
-                //   child: RichText(
-                //   ),
-                // )
               ],
             ),
           ),

@@ -47,7 +47,7 @@ class _EditableText_OwnState extends State<EditableText_Own> {
             onSubmitted: (newValue){
               setState(() {
                 InitialText = newValue;
-                _isEditingText =false;
+                _isEditingText = false;
               });
             },
             autofocus: true,

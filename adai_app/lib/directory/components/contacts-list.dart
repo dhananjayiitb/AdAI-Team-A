@@ -39,9 +39,10 @@ class ContactsList extends StatelessWidget {
                 )
                 );
               },
-              title: Text(contact.info.displayName),
+              title: Text(contact.info.displayName, style: TextStyle(color: Colors.white),),
               subtitle: Text(
-                  contact.info.phones.length > 0 ? contact.info.phones.elementAt(0).value : ''
+                contact.info.phones.length > 0 ? contact.info.phones.elementAt(0).value : '',
+                style: TextStyle(color: Colors.white),
               ),
               leading: ContactAvatar(contact, 36)
 

@@ -1,4 +1,6 @@
 import 'package:adai/bloc/authentication_bloc.dart';
+import 'package:adai/directory/directory_home.dart';
+import 'package:adai/globals.dart';
 import 'package:adai/main_drawer/editable_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +20,8 @@ class _MainDrawerState extends State<MainDrawer> {
   var lastImage='';
   List<File> _images=[];
   final imagePicker =ImagePicker();
-  EditableText_Own nameText=new EditableText_Own("Enter Name");
-  EditableText_Own emailText=new EditableText_Own("Enter Email");
+  EditableText_Own nameText = new EditableText_Own("Name");
+  EditableText_Own emailText = new EditableText_Own("Email");
 
 
   Future getGalleryImage() async{
@@ -29,7 +31,7 @@ class _MainDrawerState extends State<MainDrawer> {
     await setLastImage(image);
     setState(()  {
       _images.add(File(image.path));
-      lastImage=image.path;
+      lastImage = image.path;
     });
   }
 
@@ -56,99 +58,93 @@ class _MainDrawerState extends State<MainDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 250,
-            color: Colors.indigo,
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: (){
-                      getGalleryImage();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: _images?.isEmpty ?? true ? AssetImage('assets/images/profile_pic.jpg') : FileImage(_images.last),
-                          fit: BoxFit.cover,
-                        ),
-                        shape: BoxShape.circle,
-                      ),
-                      width: 100,
-                      height: 100,
+    return Theme(
+      data: ThemeData(canvasColor: background),
+      child: Drawer(
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.35,
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
                     ),
-                  ),
-                  SizedBox(
-                    height: 15.0,
-                  ),
-                  nameText,
-                  SizedBox(
-                    height: 10.0,
-                  ),
-                  emailText,
-                ],
+                    GestureDetector(
+                      onTap: (){
+                        getGalleryImage();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: _images?.isEmpty ?? true ? AssetImage('assets/images/profile_pic.jpg') : FileImage(_images.last),
+                            fit: BoxFit.cover,
+                          ),
+                          shape: BoxShape.circle,
+                        ),
+                        width: MediaQuery.of(context).size.height * 0.14,
+                        height: MediaQuery.of(context).size.height * 0.13,
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    nameText,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    emailText,
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 2.0,
-          ),
-          ListTile(
-            onTap: (){},
-            minLeadingWidth: 5.0,
-            leading: Icon(Icons.home,color: Colors.white),
-            tileColor: Colors.indigoAccent,
-            title: Text(
-              'Home Page',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
+
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.005,
+            ),
+            ListTile(
+              onTap: (){
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DirectoryHome()),
+                );
+              },
+              minLeadingWidth: 5.0,
+              shape: RoundedRectangleBorder(),
+              leading: Icon(Icons.account_circle,color: Colors.white),
+              tileColor: button,
+              title: Text(
+                'Contacts',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 2.0,
-          ),
-          ListTile(
-            onTap: (){},
-            minLeadingWidth: 5.0,
-            leading: Icon(Icons.account_circle,color: Colors.white),
-            tileColor: Colors.indigoAccent,
-            title: Text(
-              'Directory Page',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.005,
+            ),
+            ListTile(
+              onTap: (){
+                BlocProvider.of<AuthenticationBloc>(context)
+                    .add(LoggedOut());
+              },
+              minLeadingWidth: 5.0,
+              leading: Icon(Icons.arrow_back, color: Colors.white),
+              tileColor: button,
+              title: Text(
+                'Logout',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 2.0,
-          ),
-          ListTile(
-            onTap: (){
-              BlocProvider.of<AuthenticationBloc>(context)
-                  .add(LoggedOut());
-            },
-            minLeadingWidth: 5.0,
-            leading: Icon(Icons.arrow_back,color: Colors.white),
-            tileColor: Colors.indigoAccent,
-            title: Text(
-              'Logout',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
