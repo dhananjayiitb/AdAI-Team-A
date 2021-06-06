@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bc0def52b215f2eb588c59a40b7675bdb61dc64cdd014090315ba40b8f5bdad5
-size 377
+class UserLogin {
+  String username;
+  String password;
+
+  UserLogin({this.username, this.password});
+
+  Map<String, dynamic> toDatabaseJson() =>
+      {"phone": this.username, "otp": this.password};
+}
+
+class Token {
+  String token;
+
+  Token({this.token});
+
+  factory Token.fromJson(Map<String, dynamic> json) {
+    return Token(token: json['token']);
+  }
+}

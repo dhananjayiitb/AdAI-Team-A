@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8ba29721c0ffeaab2b3553635fd043917535028c3cc80dddb6889df764d03eb4
-size 319
+import 'package:flutter/material.dart';
+
+LinearGradient getColorGradient(Color color) {
+  var baseColor = color as dynamic;
+  Color color1 = baseColor[800];
+  Color color2 = baseColor[400];
+  return LinearGradient(colors: [
+    color1,
+    color2,
+  ], begin: Alignment.bottomLeft, end: Alignment.topRight);
+}
