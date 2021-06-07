@@ -23,9 +23,9 @@ class _LoginFormState extends State<LoginForm> {
     Future<void> getotp(String phone) async {
       //print(_tokenURL);
       String phno = "+91" + phone;
-      print(Uri.https('adaiapp.herokuapp.com', 'core/generate/'));
+      print(Uri.http('13.233.224.41:8000', 'core/generate/'));
       var response = await http.post(
-        Uri.https('adaiapp.herokuapp.com', 'core/generate/'),
+        Uri.http('13.233.224.41:8000', 'core/generate/'),
         // headers: <String, String>{
         //   'Content-Type': 'application/json; charset=UTF-8',
         // },

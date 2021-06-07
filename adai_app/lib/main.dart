@@ -12,7 +12,7 @@ import 'package:adai/common/common.dart';
 
 void main() {
   final userRepository = UserRepository();
-
+  // userRepository.authenticate(username: username, password: password).
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {
       return AuthenticationBloc(userRepository: userRepository)
@@ -39,20 +39,20 @@ class App extends StatelessWidget {
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          return HomePage();
-          // if (state is AuthenticationUninitialized) {
-          //   return SplashPage();
-          // }
-          // if (state is AuthenticationAuthenticated) {
-          //   return HomePage();
-          // }
-          // if (state is AuthenticationUnauthenticated1) {
-          //   return LoginOtp(userRepository: userRepository);
-          // }
-          // if (state is AuthenticationUnauthenticated) {
-          //   return LoginPage(userRepository: userRepository);
-          // }
-          // return LoadingIndicator();
+
+          if (state is AuthenticationUninitialized) {
+            return SplashPage();
+          }
+          if (state is AuthenticationAuthenticated) {
+            return HomePage(userRepository);
+          }
+          if (state is AuthenticationUnauthenticated1) {
+            return LoginOtp(userRepository: userRepository);
+          }
+          if (state is AuthenticationUnauthenticated) {
+            return LoginPage(userRepository: userRepository);
+          }
+          return LoadingIndicator();
         },
       ),
     );

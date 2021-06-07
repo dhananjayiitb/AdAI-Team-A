@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:adai/model/api_model.dart';
+import 'package:adai/globals.dart' as globals;
 
 // final String _base = "https://notifyme69.herokuapp.com";
 // final String _tokenEndpoint = "/api/login/app/";
@@ -9,9 +10,9 @@ import 'package:adai/model/api_model.dart';
 
 Future<Token> getToken(UserLogin userLogin) async {
   //print(_tokenURL);
-  print(Uri.https('adaiapp.herokuapp.com', 'core/verify/'));
+  print(Uri.http('13.233.224.41:8000', 'core/verify/'));
   var response = await http.post(
-    Uri.https('adaiapp.herokuapp.com', 'core/verify/'),
+    Uri.http('13.233.224.41:8000', 'core/verify/'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -20,6 +21,9 @@ Future<Token> getToken(UserLogin userLogin) async {
   );
   print(response.body);
   if (response.statusCode == 200) {
+    print(response.body);
+    Token t1=Token.fromJson(json.decode(response.body));
+    globals.token= t1.token;
     return Token.fromJson(json.decode(response.body));
   } else {
     print(json.decode(response.body).toString());

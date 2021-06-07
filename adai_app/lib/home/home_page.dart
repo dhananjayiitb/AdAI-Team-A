@@ -1,7 +1,11 @@
 import 'package:adai/Custom_made_templates/page_view.dart';
+import 'package:adai/Custom_made_templates/predefined_posters.dart';
 import 'package:adai/Previous_Templates/page_view.dart';
 import 'package:adai/broadcast/broadcast_form.dart';
+import 'package:adai/get_api_data/getting_Data.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
+import 'package:adai/model/api_model.dart';
+import 'package:adai/repository/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,10 +15,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../globals.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  final UserRepository userRepository;
+  const HomePage(this.userRepository, {Key key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState(userRepository);
 }
 
 class _HomePageState extends State<HomePage> {
@@ -23,6 +28,10 @@ class _HomePageState extends State<HomePage> {
   MainDrawer mainDrawer = new MainDrawer();
   List<String> categoryList = ['Templates','Previous Posters'];
   var selectedIndex;
+
+
+  UserRepository userRepository;
+  _HomePageState(this.userRepository);
 
   Future getSelectedIndex() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -63,11 +72,16 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future<List> getTemp()async{
+
+    return await getTemplates(token);
+  }
+
   @override
   void initState() {
     super.initState();
     selectedIndex = 0;
-    //getSelectedIndex();
+    getTemp();
   }
 
   Widget catTile(index) {

@@ -7,6 +7,7 @@ import 'package:adai/dao/user_dao.dart';
 
 class UserRepository {
   final userDao = UserDao();
+  User user;
 
   Future<User> authenticate({
     @required String username,
@@ -14,7 +15,7 @@ class UserRepository {
   }) async {
     UserLogin userLogin = UserLogin(username: username, password: password);
     Token token = await getToken(userLogin);
-    User user = User(
+    user = User(
       id: 0,
       username: username,
       token: token.token,
