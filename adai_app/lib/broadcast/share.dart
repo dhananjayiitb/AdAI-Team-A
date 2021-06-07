@@ -1,11 +1,14 @@
+import 'dart:io';
+
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../globals.dart';
 
 class SharePage extends StatefulWidget {
-  SharePage({this.preview});
-  final preview;
+  SharePage({this.preview, this.image});
+  final String preview;
+  final File image;
 
   @override
   _SharePageState createState() => _SharePageState();
@@ -48,7 +51,9 @@ class _SharePageState extends State<SharePage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.5,
-                      child: Image.asset(widget.preview, fit: BoxFit.fill,),
+                      child: widget.image == null
+                          ? Image.asset(widget.preview, fit: BoxFit.fill,)
+                          : Image.file(widget.image),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                     Container(

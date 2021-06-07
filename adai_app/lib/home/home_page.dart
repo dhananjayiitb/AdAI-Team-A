@@ -1,5 +1,6 @@
 import 'package:adai/Custom_made_templates/page_view.dart';
 import 'package:adai/Previous_Templates/page_view.dart';
+import 'package:adai/broadcast/broadcast_form.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,15 @@ class _HomePageState extends State<HomePage> {
         source: ImageSource.camera
     );
     setState(() {
-      _image=File(image.path);
+      _image = File(image.path);
     });
+    if(_image != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BroadcastForm(preview: null, image: _image,)),
+      );
+    }
   }
 
   Future getGalleryImage() async{
@@ -44,8 +52,15 @@ class _HomePageState extends State<HomePage> {
         source: ImageSource.gallery
     );
     setState(() {
-      _image=File(image.path);
+      _image = File(image.path);
     });
+    if(_image != null){
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BroadcastForm(preview: null, image: _image,)),
+      );
+    }
   }
 
   @override

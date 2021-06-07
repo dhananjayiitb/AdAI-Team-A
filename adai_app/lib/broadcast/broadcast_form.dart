@@ -7,7 +7,8 @@ import 'share.dart';
 
 class BroadcastForm extends StatefulWidget {
   final String preview;
-  BroadcastForm({this.preview});
+  final File image;
+  BroadcastForm({this.preview, this.image});
 
   @override
   State<BroadcastForm> createState() => _BroadcastFormState();
@@ -40,7 +41,9 @@ class _BroadcastFormState extends State<BroadcastForm> {
                               SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.4,
-                                child: Image.asset(widget.preview, fit: BoxFit.fill,),
+                                child: widget.image == null
+                                    ? Image.asset(widget.preview, fit: BoxFit.fill,)
+                                    : Image.file(widget.image),
                               ),
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.30,
@@ -88,7 +91,7 @@ class _BroadcastFormState extends State<BroadcastForm> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => SharePage(preview: widget.preview)),
+                                            builder: (context) => SharePage(preview: widget.preview, image: widget.image)),
                                       );
                                     },
                                     child: Text(
