@@ -73,7 +73,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<List> getTemp()async{
-
     return await getTemplates(token);
   }
 
