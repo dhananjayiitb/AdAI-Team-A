@@ -1,3 +1,4 @@
+import 'package:adai/LoadingData/LoadingPage.dart';
 import 'package:adai/login/login_otp.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,8 @@ class App extends StatelessWidget {
             return SplashPage();
           }
           if (state is AuthenticationAuthenticated) {
-            return HomePage(userRepository);
+            //return HomePage(userRepository);
+            return LoadingPage();
           }
           if (state is AuthenticationUnauthenticated1) {
             return LoginOtp(userRepository: userRepository);

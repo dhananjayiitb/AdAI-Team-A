@@ -72,15 +72,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Future<List> getTemp()async{
-    return await getTemplates(token);
-  }
+  // Future<List> getTemp()async{
+  //   return await getTemplates(token);
+  // }
 
   @override
   void initState() {
     super.initState();
     selectedIndex = 0;
-    getTemp();
+    // getTemp();
   }
 
   Widget catTile(index) {
@@ -248,7 +248,8 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                     child: Container(
                       height: MediaQuery.of(context).size.height-220,
-                      child: selectedIndex == 0 ? TemplateTile() : PrevPosters(),
+                      // child: selectedIndex == 0 ? TemplateTile() : PrevPosters(),
+                      child: Container(),
                     ),
                   ),
                 ],
