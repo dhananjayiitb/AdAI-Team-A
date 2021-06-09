@@ -1,4 +1,3 @@
-import 'package:adai/directory/components/contact-avatar.dart';
 import 'package:adai/globals.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -90,7 +89,9 @@ class _ContactDetailsState extends State<ContactDetails> {
               child: Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[
-                  Center(child: ContactAvatar(widget.contact, 100)),
+                  Center(child: CircleAvatar(
+                      child: Text("", style: TextStyle(color: Colors.white)),
+                      backgroundColor: Colors.transparent)),
                   Align(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

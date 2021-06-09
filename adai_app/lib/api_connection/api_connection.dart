@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:adai/model/api_model.dart';
 
+import '../globals.dart';
+
 Future<Token> getToken(UserLogin userLogin) async {
   //print(_tokenURL);
   print(Uri.http('13.233.224.41:8000', 'core/verify/'));
@@ -22,7 +24,7 @@ Future<Token> getToken(UserLogin userLogin) async {
   }
 }
 
-Future<List> getPosters(String token) async {
+Future<List> getPosters() async {
   print(Uri.http('13.233.224.41:8000', 'core/get_posters/'));
   String finalToken = 'Token '+ token;
   var response = await http.post(
@@ -45,7 +47,7 @@ Future<List> getPosters(String token) async {
   }
 }
 
-Future<List> getUserDetails(String token) async {
+Future<List> getUserDetails() async {
   print(Uri.http('13.233.224.41:8000', 'core/get_user_details/'));
   String finalToken = 'Token '+ token;
   var response = await http.post(
@@ -66,7 +68,7 @@ Future<List> getUserDetails(String token) async {
   }
 }
 
-Future<List> putUserDetails(String token) async {
+Future<List> putUserDetails() async {
   print(Uri.http('13.233.224.41:8000', 'core/put_user_details/'));
   String finalToken = 'Token '+ token;
   var response = await http.post(
@@ -87,7 +89,7 @@ Future<List> putUserDetails(String token) async {
   }
 }
 
-Future<List> updateUserDetails(String token) async {
+Future<List> updateUserDetails() async {
   print(Uri.http('13.233.224.41:8000', 'core/update_user_details/'));
   String finalToken = 'Token '+ token;
   var response = await http.post(
@@ -108,7 +110,7 @@ Future<List> updateUserDetails(String token) async {
   }
 }
 
-Future<List> getCustomer(String token) async {
+Future<List> getCustomer() async {
   print(Uri.http('13.233.224.41:8000', 'core/get_customer/'));
   String finalToken = 'Token '+ token;
   var response = await http.post(
@@ -129,7 +131,7 @@ Future<List> getCustomer(String token) async {
   }
 }
 
-Future<List> putCustomer(String token) async {
+Future<List> putCustomer() async {
   print(Uri.http('13.233.224.41:8000', 'core/put_customer/'));
   String finalToken = 'Token '+ token;
   var response = await http.post(

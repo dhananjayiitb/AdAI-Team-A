@@ -1,9 +1,8 @@
+import 'package:adai/directory/addCustomer.dart';
 import 'package:adai/globals.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import 'components/contacts-list.dart';
 import 'contact-class.dart';
 
 class DirectoryHome extends StatefulWidget {
@@ -14,6 +13,7 @@ class DirectoryHome extends StatefulWidget {
 }
 
 class _DirectoryHomeState extends State<DirectoryHome> {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,6 +37,7 @@ class DirectoryHomePage extends StatefulWidget {
 }
 
 class _DirectoryHomePageState extends State<DirectoryHomePage> {
+  List<List<String>> userContacts = [['DJ','463786437'],['Ka','36535673']];
   List<AppContact> contacts = [];
   List<AppContact> contactsFiltered = [];
   Map<String, Color> contactsColorMap = new Map();
@@ -130,14 +131,12 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: button,
-
-        onPressed: () async {
-          try {
-            Contact contact = await ContactsService.openContactForm();
-            if(contact != null){
-              getAllContacts();
-            }
-          } on FormOperationException catch (e) {}
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddCustomer()),
+          );
         },
       ),
       body: Container(
@@ -161,27 +160,28 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
                 ),
               ),
             ),
-            contactsLoaded == true ?  // if the contacts have not been loaded yet
-            listItemsExist == true ?  // if we have contacts to show
-            ContactsList(
-              reloadContacts: (){
-                getAllContacts();
-              },
-              contacts: isSearching == true ? contactsFiltered : contacts,
-            ) : Container(
-                padding: EdgeInsets.only(top: 40),
-                child: Text(
-                  isSearching ?'No search results to show' : 'No contacts exist',
-                  style: TextStyle(color: Colors.grey, fontSize: 20),
-                )
-            ) :
-            Container(  // still loading contacts
-              padding: EdgeInsets.only(top: 40),
-              child: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: button,
-                ),
-              ),
+            userContacts == null
+                ? Text("Start Adding Contacts..")
+                : ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: userContacts.length,
+                    itemBuilder: (context, index){
+                      return ListTile(
+                        onTap: () {},
+                        title: Text(userContacts[index][0], style: TextStyle(color: Colors.white),),
+                        subtitle: Text(userContacts[index][1], style: TextStyle(color: Colors.white),),
+                        leading: Container(
+                          width: 36,
+                          height: 36,
+                          decoration: BoxDecoration(shape: BoxShape.circle, color: button),
+                          child: CircleAvatar(
+                            child: Text(userContacts[index][0][0], style: TextStyle(color: Colors.white)),
+                            backgroundColor: Colors.transparent)
+                        ),
+                      );
+                    },
             )
           ],
         ),

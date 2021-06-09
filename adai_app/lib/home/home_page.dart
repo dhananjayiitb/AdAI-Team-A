@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   getPostersHere() async {
-    previousPosters = await getPosters(token);
+    previousPosters = await getPosters();
     templates = previousPosters;
   }
 
