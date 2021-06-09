@@ -20,18 +20,14 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     print("haha");
-    Future<void> getotp(String phone) async {
-      //print(_tokenURL);
-      String phno = "+91" + phone;
-      print(Uri.https('adaiapp.herokuapp.com', 'core/generate/'));
+    Future<void> getOtp(String phone) async {
+      String phoneNo = "+91" + phone;
+      print(Uri.http('13.233.224.41:8000', 'core/generate/'));
       var response = await http.post(
-        Uri.https('adaiapp.herokuapp.com', 'core/generate/'),
-        // headers: <String, String>{
-        //   'Content-Type': 'application/json; charset=UTF-8',
-        // },
-        body: '{"phone":"$phno"}',
+        Uri.http('13.233.224.41:8000', 'core/generate/'),
+        body: '{"phone":"$phoneNo"}',
       );
-      print(phno);
+      print(phoneNo);
       print("lol");
       print(response.body);
       if (response.statusCode == 200) {
@@ -43,7 +39,7 @@ class _LoginFormState extends State<LoginForm> {
 
     _onLoginButtonPressed() {
       if(_usernameController.text.length == 10) {
-        getotp(_usernameController.text);
+        getOtp(_usernameController.text);
         BlocProvider.of<LoginBloc>(context).add(OTPButtonPressed(
           phoneno: _usernameController.text,
           userRepository: userRepository,

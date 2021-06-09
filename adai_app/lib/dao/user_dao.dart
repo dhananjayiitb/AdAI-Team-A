@@ -1,5 +1,6 @@
 import 'package:adai/database/user_database.dart';
 import 'package:adai/model/user_model.dart';
+import 'package:adai/globals.dart' as globals;
 
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
@@ -23,6 +24,7 @@ class UserDao {
       List<Map> users =
           await db.query(userTable, where: 'id = ?', whereArgs: [id]);
       if (users.length > 0) {
+        globals.token = users[0]['token'];
         return true;
       } else {
         return false;

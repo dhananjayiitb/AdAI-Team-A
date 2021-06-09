@@ -65,7 +65,7 @@ class _SharePageState extends State<SharePage> {
                         padding: EdgeInsets.only(top: 20.0),
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            _onShare(widget.preview);
+                            _onShare(widget.preview, widget.image);
                             },
                           icon: Icon(Icons.share_outlined),
                           label: Text(
@@ -96,7 +96,9 @@ class _SharePageState extends State<SharePage> {
   }
 }
 
-void _onShare(String poster) async{
-  final ByteData bytes = await rootBundle.load(poster);
+void _onShare(asset, file) async{
+  final ByteData bytes = (file == null)
+      ? await rootBundle.load(asset)
+      : await rootBundle.load(file);
   await Share.file('Poster', 'poster.png', bytes.buffer.asUint8List(), 'image/png');
 }

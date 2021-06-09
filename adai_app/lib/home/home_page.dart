@@ -1,5 +1,6 @@
 import 'package:adai/Custom_made_templates/page_view.dart';
 import 'package:adai/Previous_Templates/page_view.dart';
+import 'package:adai/api_connection/api_connection.dart';
 import 'package:adai/broadcast/broadcast_form.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
@@ -63,11 +64,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  getPostersHere() async {
+    previousPosters = await getPosters(token);
+    templates = previousPosters;
+  }
+
   @override
   void initState() {
     super.initState();
     selectedIndex = 0;
-    //getSelectedIndex();
   }
 
   Widget catTile(index) {
@@ -111,6 +116,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    getPostersHere();
     return Scaffold(
       drawer: SafeArea(
         child: mainDrawer,
