@@ -67,12 +67,14 @@ class _HomePageState extends State<HomePage> {
   getPostersHere() async {
     previousPosters = await getPosters();
     templates = previousPosters;
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
     selectedIndex = 0;
+    getPostersHere();
   }
 
   Widget catTile(index) {
@@ -116,7 +118,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    getPostersHere();
     return Scaffold(
       drawer: SafeArea(
         child: mainDrawer,

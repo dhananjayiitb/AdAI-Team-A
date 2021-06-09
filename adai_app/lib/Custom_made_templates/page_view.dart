@@ -37,7 +37,7 @@ class _TemplateTileState extends State<TemplateTile> {
                       Container(
                         width: MediaQuery.of(context).size.width - 25,
                         height: MediaQuery.of(context).size.height - 250,
-                        child: Image.memory(templates[index]),
+                        child: Image.memory(templates[index], fit: BoxFit.fill,),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [

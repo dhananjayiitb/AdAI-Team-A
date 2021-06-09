@@ -1,3 +1,4 @@
+import 'package:adai/api_connection/api_connection.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import '../globals.dart';
@@ -26,7 +27,6 @@ class _AddCustomerState extends State<AddCustomer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getAllContacts();
   }
 
@@ -50,53 +50,55 @@ class _AddCustomerState extends State<AddCustomer> {
         title: Text("Select Contact"),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                    labelText: 'Search',
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(
-                          color: button,
-                        )
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: button,
-                    )
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                      labelText: 'Search',
+                      border: new OutlineInputBorder(
+                          borderSide: new BorderSide(
+                            color: button,
+                          )
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: button,
+                      )
+                  ),
                 ),
               ),
             ),
-          ),
-          ListView.builder(
-            itemCount: contacts.length,
-            scrollDirection: Axis.vertical,
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index){
-              return ListTile(
-                onTap: () {
-                  //TODO putCustomer()
-                  Navigator.of(context).pop();
-                },
-                title: Text(contacts[index].info.displayName, style: TextStyle(color: Colors.white),),
-                subtitle: Text(contacts[index].info.phones.elementAt(0).value, style: TextStyle(color: Colors.white),),
-                leading: Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: button),
-                    child: CircleAvatar(
-                        child: Text(contacts[index].info.displayName[0], style: TextStyle(color: Colors.white)),
-                        backgroundColor: Colors.transparent)
-                ),
-              );
-            },
-          ),
-        ],
+            ListView.builder(
+              itemCount: contacts.length,
+              scrollDirection: Axis.vertical,
+              physics: ClampingScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index){
+                return ListTile(
+                  onTap: () async{
+                    await putCustomer(contacts[index].info.displayName, '+91' + contacts[index].info.phones.elementAt(0).value);
+                    Navigator.of(context).pop();
+                  },
+                  title: Text(contacts[index].info.displayName, style: TextStyle(color: Colors.white),),
+                  subtitle: Text(contacts[index].info.phones.elementAt(0).value, style: TextStyle(color: Colors.white),),
+                  leading: Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: button),
+                      child: CircleAvatar(
+                          child: Text(contacts[index].info.displayName[0], style: TextStyle(color: Colors.white)),
+                          backgroundColor: Colors.transparent)
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

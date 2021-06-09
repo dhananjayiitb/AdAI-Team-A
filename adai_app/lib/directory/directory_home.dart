@@ -1,3 +1,4 @@
+import 'package:adai/api_connection/api_connection.dart';
 import 'package:adai/directory/addCustomer.dart';
 import 'package:adai/globals.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -37,17 +38,24 @@ class DirectoryHomePage extends StatefulWidget {
 }
 
 class _DirectoryHomePageState extends State<DirectoryHomePage> {
-  List<List<String>> userContacts = [['DJ','463786437'],['Ka','36535673']];
   List<AppContact> contacts = [];
   List<AppContact> contactsFiltered = [];
   Map<String, Color> contactsColorMap = new Map();
   TextEditingController searchController = new TextEditingController();
   bool contactsLoaded = false;
 
+  getUserContacts() async{
+    await getCustomer();
+    setState(() {
+      contactsLoaded = true;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getPermissions();
+    getUserContacts();
   }
   getPermissions() async {
     if (await Permission.contacts.request().isGranted) {
@@ -122,61 +130,69 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: button,
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async{
+          await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AddCustomer()),
+              builder: (context) => AddCustomer(),
+            ),
           );
+          setState(() {});
         },
       ),
-      body: Container(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                    labelText: 'Search',
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(
-                            color: button,
-                        )
+      body: !contactsLoaded
+          ? Center(child: CircularProgressIndicator())
+          : userContacts.isEmpty
+          ? Center(child: Text('No Contacts Added', style: TextStyle(color: Colors.white, fontSize: 20),))
+          : SingleChildScrollView(
+            child: Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      child: TextField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                            labelText: 'Search',
+                            border: new OutlineInputBorder(
+                                borderSide: new BorderSide(
+                                    color: button,
+                                )
+                            ),
+                            prefixIcon: Icon(
+                                Icons.search,
+                                color: button,
+                            )
+                        ),
+                      ),
                     ),
-                    prefixIcon: Icon(
-                        Icons.search,
-                        color: button,
+                    userContacts == null
+                        ? Text("Start Adding Contacts..")
+                        : ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            physics: ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: userContacts.length,
+                            itemBuilder: (context, index){
+                              return ListTile(
+                                onTap: () {},
+                                title: Text(userContacts[index][0], style: TextStyle(color: Colors.white),),
+                                subtitle: Text(userContacts[index][1], style: TextStyle(color: Colors.white),),
+                                leading: Container(
+                                  width: 36,
+                                  height: 36,
+                                  decoration: BoxDecoration(shape: BoxShape.circle, color: button),
+                                  child: CircleAvatar(
+                                    child: Text(userContacts[index][0][0], style: TextStyle(color: Colors.white)),
+                                    backgroundColor: Colors.transparent)
+                                ),
+                              );
+                            },
                     )
+                  ],
                 ),
               ),
-            ),
-            userContacts == null
-                ? Text("Start Adding Contacts..")
-                : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: userContacts.length,
-                    itemBuilder: (context, index){
-                      return ListTile(
-                        onTap: () {},
-                        title: Text(userContacts[index][0], style: TextStyle(color: Colors.white),),
-                        subtitle: Text(userContacts[index][1], style: TextStyle(color: Colors.white),),
-                        leading: Container(
-                          width: 36,
-                          height: 36,
-                          decoration: BoxDecoration(shape: BoxShape.circle, color: button),
-                          child: CircleAvatar(
-                            child: Text(userContacts[index][0][0], style: TextStyle(color: Colors.white)),
-                            backgroundColor: Colors.transparent)
-                        ),
-                      );
-                    },
-            )
-          ],
-        ),
-      ),
+          ),
     );
   }
 }

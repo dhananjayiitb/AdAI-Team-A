@@ -17,7 +17,9 @@ Future<Token> getToken(UserLogin userLogin) async {
   );
   print(response.body);
   if (response.statusCode == 200) {
-    return Token.fromJson(json.decode(response.body));
+    Token t = Token.fromJson(json.decode(response.body));
+    token = t.token;
+    return t;
   } else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
@@ -27,6 +29,7 @@ Future<Token> getToken(UserLogin userLogin) async {
 Future<List> getPosters() async {
   print(Uri.http('13.233.224.41:8000', 'core/get_posters/'));
   String finalToken = 'Token '+ token;
+  print(finalToken);
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/get_posters/'),
     headers: <String, String>{
@@ -110,42 +113,43 @@ Future<List> updateUserDetails() async {
   }
 }
 
-Future<List> getCustomer() async {
-  print(Uri.http('13.233.224.41:8000', 'core/get_customer/'));
+Future<dynamic> getCustomer() async{
   String finalToken = 'Token '+ token;
+  String body = '{"phone":"$phoneNum"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/get_customer/'),
     headers: <String, String>{
       'Authorization': finalToken,
+      'Content-Type': 'application/json',
     },
-  );
-  print(response.body);
+    body: body,
+  ) ;
   if (response.statusCode == 200) {
-    var num = response.body.length;
-    List l1=[];
-    print(num);
-    return l1;
+    final parsed = json.decode(json.decode(response.body));
+    userContacts = parsed;
+    return parsed;
   } else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
   }
 }
 
-Future<List> putCustomer() async {
-  print(Uri.http('13.233.224.41:8000', 'core/put_customer/'));
-  String finalToken = 'Token '+ token;
+Future<void> putCustomer(String name, String contact) async{
+  String finalToken = 'Token ' + token;
+  print(finalToken);
+  String body = '{"phone":"$phoneNum","name":"$name","contact":"$contact"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/put_customer/'),
     headers: <String, String>{
       'Authorization': finalToken,
+      'Content-Type': 'application/json',
     },
-  );
-  print(response.body);
+    body: body,
+  ) ;
+  print(response.statusCode);
   if (response.statusCode == 200) {
-    var num = response.body.length;
-    List l1=[];
-    print(num);
-    return l1;
+    print('customer data updated');
+    await getCustomer();
   } else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));

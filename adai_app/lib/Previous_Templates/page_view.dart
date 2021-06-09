@@ -37,7 +37,7 @@ class _PrevPostersState extends State<PrevPosters> {
                       Container(
                         width: MediaQuery.of(context).size.width - 25,
                         height: MediaQuery.of(context).size.height - 250,
-                        child: Image.memory(previousPosters[index]),
+                        child: Image.memory(previousPosters[index], fit: BoxFit.fill,),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: [
