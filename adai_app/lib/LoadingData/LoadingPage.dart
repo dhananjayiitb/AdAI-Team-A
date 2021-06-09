@@ -31,11 +31,12 @@ class _LoadingPageState extends State<LoadingPage> {
   }
 
   void getAllData() async {
-      // await getTemplates(token);
-      // await putCustomer(token, '8427751533', 'GS', '9876543210');
-      // await getCustomer(token, '8427751533');
-      await putUserDetails(token, '8427751533', 'GS', 'business', 'businessNumber', 'businessAddress', 'businessType');
-      await getUserDetails(token, '8427751533');
+      //await getTemplates(token);
+      //await putCustomer(token, phoneNum, 'GS_2', '+919999999990');
+      //await getCustomer(token, phoneNum);
+      //await updateUserDetails(token, phoneNum, 'Gs_update', 'business2', 'businessNumber2', 'businessAddress2', 'businessType2');
+      //await putUserDetails(token, '+919876543210', 'GS', 'business', 'businessNumber', 'businessAddress', 'businessType');
+      await getUserDetails(token, '+919876543210');
 
   }
 }

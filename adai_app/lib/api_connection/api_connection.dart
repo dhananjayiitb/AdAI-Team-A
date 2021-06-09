@@ -21,7 +21,9 @@ Future<Token> getToken(UserLogin userLogin) async {
   );
   print(response.body);
   if (response.statusCode == 200) {
-    return Token.fromJson(json.decode(response.body));
+    Token t=Token.fromJson(json.decode(response.body));
+    globals.token=t.token;
+    return t;
   }
   else {
     print(json.decode(response.body).toString());

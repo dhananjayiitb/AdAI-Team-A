@@ -25,6 +25,7 @@ class UserDao {
           await db.query(userTable, where: 'id = ?', whereArgs: [id]);
       if (users.length > 0) {
         globals.token = users[0]['token'];
+        globals.phoneNum = users[0]['username'];
         return true;
       } else {
         return false;
