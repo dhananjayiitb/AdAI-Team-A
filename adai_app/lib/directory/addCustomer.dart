@@ -16,22 +16,10 @@ class _AddCustomerState extends State<AddCustomer> {
   List<AppContact> contacts = [];
 
   getAllContacts() async {
-    print('hey1');
-    List colors = [
-      button,
-    ];
-    int colorIndex = 0;
     List<AppContact> _contacts = (await ContactsService.getContacts()).map((contact) {
-      Color baseColor = colors[colorIndex];
-      colorIndex++;
-      if (colorIndex == colors.length) {
-        colorIndex = 0;
-      }
-      print('hey2');
-      return new AppContact(info: contact, color: baseColor);
+      return new AppContact(info: contact);
     }).toList();
     setState(() {
-      print('hey3');
       contacts = _contacts;
     });
   }
@@ -40,7 +28,6 @@ class _AddCustomerState extends State<AddCustomer> {
   void initState() {
     // TODO: implement initState
     getAllContacts();
-    print(contacts[0].info.displayName);
   }
 
   @override
@@ -86,7 +73,7 @@ class _AddCustomerState extends State<AddCustomer> {
             ),
           ),
           ListView.builder(
-            itemCount: 1,
+            itemCount: contacts.length,
             scrollDirection: Axis.vertical,
             physics: ClampingScrollPhysics(),
             shrinkWrap: true,
@@ -97,7 +84,7 @@ class _AddCustomerState extends State<AddCustomer> {
                   Navigator.of(context).pop();
                 },
                 title: Text(contacts[index].info.displayName, style: TextStyle(color: Colors.white),),
-                subtitle: Text(contacts[index].info.phones.first.toString(), style: TextStyle(color: Colors.white),),
+                subtitle: Text(contacts[index].info.phones.elementAt(0).value, style: TextStyle(color: Colors.white),),
                 leading: Container(
                     width: 36,
                     height: 36,
@@ -106,7 +93,7 @@ class _AddCustomerState extends State<AddCustomer> {
                         child: Text(contacts[index].info.displayName[0], style: TextStyle(color: Colors.white)),
                         backgroundColor: Colors.transparent)
                 ),
-              );;
+              );
             },
           ),
         ],

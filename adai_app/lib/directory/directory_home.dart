@@ -65,17 +65,8 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
   }
 
   getAllContacts() async {
-    List colors = [
-      button,
-    ];
-    int colorIndex = 0;
     List<AppContact> _contacts = (await ContactsService.getContacts()).map((contact) {
-      Color baseColor = colors[colorIndex];
-      colorIndex++;
-      if (colorIndex == colors.length) {
-        colorIndex = 0;
-      }
-      return new AppContact(info: contact, color: baseColor);
+      return new AppContact(info: contact);
     }).toList();
     setState(() {
       contacts = _contacts;

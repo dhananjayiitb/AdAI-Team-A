@@ -21,17 +21,6 @@ class _NewCustomerState extends State<NewCustomer> {
         backgroundColor: background,
         title: Text("New Customer"),
         centerTitle: true,
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              //TODO putCustomer()
-              int count = 0;
-              Navigator.of(context).popUntil((_) => count++ >= 2);
-            },
-            child: Icon(Icons.save, color: button,),
-            style: ElevatedButton.styleFrom(primary: background,elevation: 0.0),
-          ),
-        ],
       ),
       body: Center(
         child: Column(
@@ -87,6 +76,38 @@ class _NewCustomerState extends State<NewCustomer> {
                   ),
                   //inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                   controller: _phone,
+                ),
+              ),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.3,),
+            Container(
+              width:
+              MediaQuery.of(context).size.width * 0.35,
+              height:
+              MediaQuery.of(context).size.height * 0.10,
+              child: Padding(
+                padding: EdgeInsets.only(top: 20.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    //TODO putCustomer()
+                    int count = 0;
+                    Navigator.of(context).popUntil((_) => count++ >= 2);
+                  },
+                  icon: Icon(Icons.save),
+                  label: Text(
+                    'Save',
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: button,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+                    side: BorderSide(
+                      width: 0,
+                    ),
+                  ),
                 ),
               ),
             ),

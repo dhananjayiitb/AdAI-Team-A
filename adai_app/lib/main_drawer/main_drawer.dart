@@ -20,8 +20,6 @@ class _MainDrawerState extends State<MainDrawer> {
   var lastImage='';
   List<File> _images=[];
   final imagePicker =ImagePicker();
-  EditableText_Own nameText = new EditableText_Own("Name");
-  EditableText_Own emailText = new EditableText_Own("Email");
 
 
   Future getGalleryImage() async{
@@ -91,16 +89,27 @@ class _MainDrawerState extends State<MainDrawer> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    nameText,
+                    Text(
+                      'Name',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                      ),
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    emailText,
+                    Text(
+                      'Business Name',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.005,
             ),
@@ -117,7 +126,7 @@ class _MainDrawerState extends State<MainDrawer> {
               leading: Icon(Icons.account_circle,color: Colors.white),
               tileColor: button,
               title: Text(
-                'Contacts',
+                'Directory',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
