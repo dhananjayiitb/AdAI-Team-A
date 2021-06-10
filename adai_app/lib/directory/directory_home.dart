@@ -142,7 +142,8 @@ class _DirectoryHomePageState extends State<DirectoryHomePage> {
       ),
       body: !contactsLoaded
           ? Center(child: CircularProgressIndicator())
-          : userContacts.isEmpty
+          // ignore: null_aware_in_condition
+          : userContacts?.isEmpty
           ? Center(child: Text('No Contacts Added', style: TextStyle(color: Colors.white, fontSize: 20),))
           : SingleChildScrollView(
             child: Container(

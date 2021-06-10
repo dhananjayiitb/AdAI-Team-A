@@ -1,5 +1,5 @@
 library adai_app.globals;
-
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 
 String phone = "";
@@ -12,3 +12,10 @@ List<dynamic> userContacts;
 
 Color background = Color.fromARGB(255, 52, 68, 94);
 Color button = Color.fromARGB(255, 17, 182, 202);
+
+List<File> images=[];
+String fullName;
+String businessName;
+String businessType;
+String businessAddress;
+String businessNumber;
