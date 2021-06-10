@@ -4,7 +4,7 @@ import '../globals.dart';
 
 getUserData() async {
   var userDetails;
-  userDetails = await getUserDetails(token,phoneNum);
+  userDetails = await getUserDetails();
   print(userDetails);
 
   fullName = userDetails['full_name']==null ? ' ':userDetails['full_name'];

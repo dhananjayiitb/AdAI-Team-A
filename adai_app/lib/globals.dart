@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 String phone = "";
 String token = "";
-String phoneNum = '';
+String phoneNum ;
 
 List<dynamic> templates;
 List<dynamic> previousPosters;

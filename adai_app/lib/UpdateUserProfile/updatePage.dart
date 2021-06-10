@@ -39,7 +39,7 @@ Widget build(BuildContext context) {
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: (){
-                updateUserDetails(globals.token, globals.phoneNum, globals.fullName, globals.businessName, globals.businessNumber, globals.businessAddress, globals.businessType);
+                updateUserDetails( globals.fullName, globals.businessName, globals.businessNumber, globals.businessAddress, globals.businessType);
                 Navigator.of(context).pop();
               },
             ),

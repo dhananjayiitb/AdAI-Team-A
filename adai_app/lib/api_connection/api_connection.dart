@@ -50,32 +50,34 @@ Future<List> getPosters() async {
   }
 }
 
-Future<void> putUserDetails(String token,String phone, String fname, String business, String businessNumber, String businessAddress, String businessType) async{
+Future<void> putUserDetails(String fname, String business, String businessNumber, String businessAddress, String businessType) async{
+  print('entered putUser');
   print(token);
+  print(phoneNum);
   String finalToken = 'Token '+token;
-  String body = '{"phone":"$phone","bname":"$business","fname":"$fname","b_type":"$businessType","b_phone":"$businessNumber","b_addr":"$businessAddress"}';
+  String body = '{"phone":"$phoneNum","bname":"$business","fname":"$fname","b_type":"$businessType","b_phone":"$businessNumber","b_addr":"$businessAddress"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/put_user_details/'),
     headers: <String, String>{
       'Authorization':finalToken,
-      'Content-Type': 'application/json',
     },
     body:body,
   ) ;
-
+  print(response.statusCode);
   if (response.statusCode == 200) {
     print('User details updated');
   }
   else {
-    print('error in put user');
+    print('error in putUSer');
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
   }
 }
 
-Future<dynamic> getUserDetails(String token,String phoneNumber) async{
+Future<dynamic> getUserDetails() async{
+  print(phoneNum);
   String finalToken = 'Token '+token;
-  String body = '{"phone":"$phoneNumber"}';
+  String body = '{"phone":"$phoneNum"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/get_user_details/'),
     headers: <String, String>{
@@ -93,9 +95,9 @@ Future<dynamic> getUserDetails(String token,String phoneNumber) async{
   else {
       print('entered else');
     // if(json.decode(response.body).toString()=="User does not exist"){
-      await putUserDetails(token, phone, 'No Name', 'No Business Name', 'No Business Number', 'No business address', 'No business Type');
+      await putUserDetails( 'No Name', 'No Business Name', 'No Business Number', 'No business address', 'No business Type');
       print('user now exists');
-      return getUserDetails(token, phoneNumber);
+      return await getUserDetails();
     //}
     // ignore: unnecessary_statements
     // else(
@@ -104,9 +106,9 @@ Future<dynamic> getUserDetails(String token,String phoneNumber) async{
   }
 }
 
-Future<void> updateUserDetails(String token,String phone, String fname, String business, String businessNumber, String businessAddress, String businessType) async{
+Future<void> updateUserDetails( String fname, String business, String businessNumber, String businessAddress, String businessType) async{
   String finalToken = 'Token '+token;
-  String body = '{"phone":"$phone","bname":"$business","fname":"$fname","b_type":"$businessType","b_phone":"$businessNumber","b_addr":"$businessAddress"}';
+  String body = '{"phone":"$phoneNum","bname":"$business","fname":"$fname","b_type":"$businessType","b_phone":"$businessNumber","b_addr":"$businessAddress"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/update_user_details/'),
     headers: <String, String>{
