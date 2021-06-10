@@ -29,7 +29,7 @@ class _PrevPostersState extends State<PrevPosters> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BroadcastForm()),
+                          builder: (context) => BroadcastForm(preview: templates[index],)),
                     );
                   },
                   child: Column(
@@ -39,12 +39,12 @@ class _PrevPostersState extends State<PrevPosters> {
                         height: MediaQuery.of(context).size.height - 250,
                         child: Image.memory(previousPosters[index], fit: BoxFit.fill,),
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.white,
-                              ),
-                            ],
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
                       ),
                     ],
