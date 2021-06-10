@@ -1,14 +1,11 @@
-import 'dart:io';
-
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../globals.dart';
 
 class SharePage extends StatefulWidget {
-  SharePage({this.preview, this.image});
-  final String preview;
-  final File image;
+  SharePage();
+  final poster = templates[0];
+  //TODO get this poster from API
 
   @override
   _SharePageState createState() => _SharePageState();
@@ -51,9 +48,7 @@ class _SharePageState extends State<SharePage> {
                     children: <Widget>[
                       Container(
                         height: MediaQuery.of(context).size.height * 0.5,
-                        child: widget.image == null
-                            ? Image.asset(widget.preview, fit: BoxFit.fill,)
-                            : Image.file(widget.image),
+                        child: Image.memory(widget.poster, fit: BoxFit.fill,)
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
                       Container(
@@ -65,7 +60,7 @@ class _SharePageState extends State<SharePage> {
                           padding: EdgeInsets.only(top: 20.0),
                           child: ElevatedButton.icon(
                             onPressed: () {
-                              _onShare(widget.preview, widget.image);
+                              _onShare(widget.poster);
                               },
                             icon: Icon(Icons.share_outlined),
                             label: Text(
@@ -97,9 +92,7 @@ class _SharePageState extends State<SharePage> {
   }
 }
 
-void _onShare(asset, file) async{
-  final ByteData bytes = (file == null)
-      ? await rootBundle.load(asset)
-      : await rootBundle.load(file);
-  await Share.file('Poster', 'poster.png', bytes.buffer.asUint8List(), 'image/png');
+void _onShare(poster) async{
+  print(poster);
+  await Share.file('My Title', 'poster.png', poster, 'image/png');
 }

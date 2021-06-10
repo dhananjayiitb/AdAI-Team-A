@@ -138,6 +138,12 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
             ListTile(
               onTap: (){
+                phone = "";
+                token = "";
+                phoneNum = "";
+                templates = [];
+                previousPosters = [];
+                userContacts = [];
                 BlocProvider.of<AuthenticationBloc>(context)
                     .add(LoggedOut());
               },

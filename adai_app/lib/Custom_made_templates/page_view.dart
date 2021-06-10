@@ -29,7 +29,7 @@ class _TemplateTileState extends State<TemplateTile> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BroadcastForm()),
+                          builder: (context) => BroadcastForm(preview: templates[index],)),
                     );
                   },
                   child: Column(

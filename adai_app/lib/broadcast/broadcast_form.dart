@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'share.dart';
 
 class BroadcastForm extends StatefulWidget {
-  final String preview;
+  final dynamic preview;
   final File image;
   BroadcastForm({this.preview, this.image});
 
@@ -42,7 +42,7 @@ class _BroadcastFormState extends State<BroadcastForm> {
                               Container(
                                 height: MediaQuery.of(context).size.height * 0.4,
                                 child: widget.image == null
-                                    ? Image.asset(widget.preview, fit: BoxFit.fill,)
+                                    ? Image.memory(widget.preview, fit: BoxFit.fill,)
                                     : Image.file(widget.image),
                               ),
                               Container(
@@ -88,10 +88,11 @@ class _BroadcastFormState extends State<BroadcastForm> {
                                   padding: EdgeInsets.only(top: 20.0),
                                   child: ElevatedButton(
                                     onPressed: () {
+                                      //TODO Send data to api, and fetch poster, then send to share page
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => SharePage(preview: widget.preview, image: widget.image)),
+                                            builder: (context) => SharePage()),
                                       );
                                     },
                                     child: Text(
