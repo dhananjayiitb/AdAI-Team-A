@@ -15,7 +15,7 @@ class _PrevPostersState extends State<PrevPosters> {
   @override
   Widget build(BuildContext context) {
     return previousPosters == null
-        ? CircularProgressIndicator()
+        ? Center(child: Text('Hold Posters Tight..', style: TextStyle(color: Colors.white, fontSize: 20),))
         : ListView.builder(
             physics: ClampingScrollPhysics(),
             scrollDirection: Axis.horizontal,

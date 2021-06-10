@@ -144,6 +144,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 templates = [];
                 previousPosters = [];
                 userContacts = [];
+                phoneContacts = [];
                 BlocProvider.of<AuthenticationBloc>(context)
                     .add(LoggedOut());
               },

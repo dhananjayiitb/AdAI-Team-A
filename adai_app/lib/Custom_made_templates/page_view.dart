@@ -15,7 +15,7 @@ class _TemplateTileState extends State<TemplateTile> {
   @override
   Widget build(BuildContext context) {
     return templates == null
-        ? CircularProgressIndicator()
+        ? Center(child: Text('Hold Posters Tight..', style: TextStyle(color: Colors.white, fontSize: 20),))
         : ListView.builder(
             physics: ClampingScrollPhysics(),
             scrollDirection: Axis.horizontal,

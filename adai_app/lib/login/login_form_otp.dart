@@ -21,6 +21,7 @@ class _LoginFormotpState extends State<LoginFormotp> {
   @override
   Widget build(BuildContext context) {
     _onLoginButtonPressed() {
+      if(_otpController.length != 6) return;
       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
         username: globals.phone,
         password: _otpController,

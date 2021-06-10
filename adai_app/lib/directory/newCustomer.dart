@@ -18,6 +18,7 @@ class _NewCustomerState extends State<NewCustomer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: background,
       appBar: AppBar(
         backgroundColor: background,
         title: Text("New Customer"),
@@ -91,6 +92,7 @@ class _NewCustomerState extends State<NewCustomer> {
                   padding: EdgeInsets.only(top: 20.0),
                   child: ElevatedButton.icon(
                     onPressed: () async {
+                      if(_name.text.toString().length == 0 || _phone.text.toString().length == 0) return ;
                       await putCustomer(_name.text.toString(), '+91' + _phone.text.toString());
                       int count = 0;
                       Navigator.of(context).popUntil((_) => count++ >= 2);
