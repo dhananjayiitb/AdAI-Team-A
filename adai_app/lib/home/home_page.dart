@@ -1,5 +1,6 @@
 import 'package:adai/Custom_made_templates/page_view.dart';
 import 'package:adai/Previous_Templates/page_view.dart';
+import 'package:adai/UpdateUserProfile/updateDataGlobals.dart';
 import 'package:adai/api_connection/api_connection.dart';
 import 'package:adai/broadcast/broadcast_form.dart';
 import 'package:adai/main_drawer/main_drawer.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   MainDrawer mainDrawer = new MainDrawer();
   List<String> categoryList = ['Templates','Previous Posters'];
   var selectedIndex;
+
 
   Future getSelectedIndex() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -70,11 +72,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+
+
   @override
   void initState() {
     super.initState();
     selectedIndex = 0;
     getPostersHere();
+    getUserData();
   }
 
   Widget catTile(index) {

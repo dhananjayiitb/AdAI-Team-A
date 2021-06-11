@@ -1,3 +1,4 @@
+import 'package:adai/UpdateUserProfile/updatePage.dart';
 import 'package:adai/bloc/authentication_bloc.dart';
 import 'package:adai/directory/directory_home.dart';
 import 'package:adai/globals.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:adai/globals.dart' as globals;
 
 class MainDrawer extends StatefulWidget {
   const MainDrawer({Key key}) : super(key: key);
@@ -17,8 +19,6 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  var lastImage='';
-  List<File> _images=[];
   final imagePicker =ImagePicker();
 
 
@@ -26,30 +26,16 @@ class _MainDrawerState extends State<MainDrawer> {
     final image= await imagePicker.getImage(
         source: ImageSource.gallery
     );
-    await setLastImage(image);
     setState(()  {
-      _images.add(File(image.path));
-      lastImage = image.path;
+      globals.images.add(File(image.path));
     });
   }
 
-  Future setLastImage(PickedFile image) async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('LastImage', image.path);
-  }
 
-  Future getLastImage() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    lastImage= prefs.getString('LastImage');
-    if(lastImage!=''){
-      _images.add(File(lastImage));
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    getLastImage();
   }
 
 
@@ -77,7 +63,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: _images?.isEmpty ?? true ? AssetImage('assets/images/profile_pic.jpg') : FileImage(_images.last),
+                            image: globals.images?.isEmpty ?? true ? AssetImage('assets/images/profile_pic.jpg') : FileImage(globals.images.last),
                             fit: BoxFit.cover,
                           ),
                           shape: BoxShape.circle,
@@ -90,7 +76,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     Text(
-                      'Name',
+                      globals.fullName,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -100,7 +86,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     Text(
-                      'Business Name',
+                      globals.businessName,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -110,11 +96,34 @@ class _MainDrawerState extends State<MainDrawer> {
                 ),
               ),
             ),
+            ListTile(
+              onTap: (){
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UpdatePage()),
+                );
+
+              },
+              minLeadingWidth: 5.0,
+              shape: RoundedRectangleBorder(),
+              leading: Icon(Icons.account_circle,color: Colors.white),
+              tileColor: button,
+              title: Text(
+                'Update Profile',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.005,
             ),
             ListTile(
               onTap: (){
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -123,7 +132,7 @@ class _MainDrawerState extends State<MainDrawer> {
               },
               minLeadingWidth: 5.0,
               shape: RoundedRectangleBorder(),
-              leading: Icon(Icons.account_circle,color: Colors.white),
+              leading: Icon(Icons.account_box_sharp,color: Colors.white),
               tileColor: button,
               title: Text(
                 'Directory',
@@ -144,6 +153,12 @@ class _MainDrawerState extends State<MainDrawer> {
                 templates = [];
                 previousPosters = [];
                 userContacts = [];
+                images = null;
+                fullName = null;
+                businessName = null;
+                businessType = null;
+                businessAddress = null;
+                businessNumber = null;
                 phoneContacts = [];
                 BlocProvider.of<AuthenticationBloc>(context)
                     .add(LoggedOut());

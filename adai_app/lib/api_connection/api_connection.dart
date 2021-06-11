@@ -50,64 +50,77 @@ Future<List> getPosters() async {
   }
 }
 
-Future<List> getUserDetails() async {
-  print(Uri.http('13.233.224.41:8000', 'core/get_user_details/'));
-  String finalToken = 'Token '+ token;
-  var response = await http.post(
-    Uri.http('13.233.224.41:8000', 'core/get_user_details/'),
-    headers: <String, String>{
-      'Authorization': finalToken,
-    },
-  );
-  print(response.body);
-  if (response.statusCode == 200) {
-    var num = response.body.length;
-    List l1=[];
-    print(num);
-    return l1;
-  } else {
-    print(json.decode(response.body).toString());
-    throw Exception(json.decode(response.body));
-  }
-}
-
-Future<List> putUserDetails() async {
-  print(Uri.http('13.233.224.41:8000', 'core/put_user_details/'));
-  String finalToken = 'Token '+ token;
+Future<void> putUserDetails(String fname, String business, String businessNumber, String businessAddress, String businessType) async{
+  print('entered putUser');
+  print(token);
+  print(phoneNum);
+  String finalToken = 'Token '+token;
+  String body = '{"phone":"$phoneNum","bname":"$business","fname":"$fname","b_type":"$businessType","b_phone":"$businessNumber","b_addr":"$businessAddress"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/put_user_details/'),
     headers: <String, String>{
-      'Authorization': finalToken,
+      'Authorization':finalToken,
     },
-  );
-  print(response.body);
+    body:body,
+  ) ;
+  print(response.statusCode);
   if (response.statusCode == 200) {
-    var num = response.body.length;
-    List l1 = [];
-    print(num);
-    return l1;
-  } else {
+    print('User details updated');
+  }
+  else {
+    print('error in putUSer');
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
   }
 }
 
-Future<List> updateUserDetails() async {
-  print(Uri.http('13.233.224.41:8000', 'core/update_user_details/'));
-  String finalToken = 'Token '+ token;
+Future<dynamic> getUserDetails() async{
+  print(phoneNum);
+  String finalToken = 'Token '+token;
+  String body = '{"phone":"$phoneNum"}';
+  var response = await http.post(
+    Uri.http('13.233.224.41:8000', 'core/get_user_details/'),
+    headers: <String, String>{
+      'Authorization':finalToken,
+    },
+    body:body,
+  ) ;
+  print(response.statusCode);
+  if (response.statusCode == 200) {
+    var parsed = json.decode(json.decode(response.body));
+    print(parsed[0]['fields']);
+    return parsed[0]['fields'];
+  }
+
+  else {
+      print('entered else');
+    // if(json.decode(response.body).toString()=="User does not exist"){
+      await putUserDetails( 'No Name', 'No Business Name', 'No Business Number', 'No business address', 'No business Type');
+      print('user now exists');
+      return await getUserDetails();
+    //}
+    // ignore: unnecessary_statements
+    // else(
+    //     throw Exception(json.decode(response.body))
+    //     );
+  }
+}
+
+Future<void> updateUserDetails( String fname, String business, String businessNumber, String businessAddress, String businessType) async{
+  String finalToken = 'Token '+token;
+  String body = '{"phone":"$phoneNum","bname":"$business","fname":"$fname","b_type":"$businessType","b_phone":"$businessNumber","b_addr":"$businessAddress"}';
   var response = await http.post(
     Uri.http('13.233.224.41:8000', 'core/update_user_details/'),
     headers: <String, String>{
-      'Authorization': finalToken,
+      'Authorization':finalToken,
     },
-  );
-  print(response.body);
+    body:body,
+  ) ;
   if (response.statusCode == 200) {
-    var num = response.body.length;
-    List l1=[];
-    print(num);
-    return l1;
-  } else {
+    print('user updated!');
+
+  }
+  else {
     print(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));
   }
